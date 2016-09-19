@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.yalantis.starwars.TilesFrameLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/tiles_frame_layout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:sw_animationDuration="1500"
+    app:sw_numberOfTilesX="50"
+    >
+  <android.support.design.widget.CoordinatorLayout
+      xmlns:android="http://schemas.android.com/apk/res/android"
+      xmlns:app="http://schemas.android.com/apk/res-auto"
+      xmlns:tools="http://schemas.android.com/tools"
+      android:id="@+id/layout_container"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      tools:context="com.ouyangzn.module.testCoordinatorLayout.CoordinatorActivity"
+      >
+    <android.support.design.widget.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay"
+        >
+      <android.support.v7.widget.Toolbar
+          android:id="@+id/toolbar"
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          app:popupTheme="@style/AppTheme.AppBarOverlay"
+          app:navigationIcon="@drawable/ic_toolbar_back"
+          app:layout_scrollFlags="scroll|snap|enterAlwaysCollapsed"
+          />
+      <!--<TextView
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/white"
+          android:gravity="center"
+          android:padding="10dp"
+          android:text="悬浮块"
+          android:textColor="#888"
+          app:layout_scrollFlags="scroll|snap"
+          />-->
+    </android.support.design.widget.AppBarLayout>
+    <include layout="@layout/content_coordinator"/>
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"
+        android:src="@android:drawable/ic_dialog_email"
+        />
+  </android.support.design.widget.CoordinatorLayout>
+</com.yalantis.starwars.TilesFrameLayout>

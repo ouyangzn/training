@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <integer name="anim_activity_in_out_duration">300</integer>
+  <!-- 分割线 -->
+  <style name="style_divide_line_x1">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1px</item>
+    <item name="android:background">@color/dividerX1</item>
+  </style>
+
+  <style name="style_divide_line_x1_margin_15">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1px</item>
+    <item name="android:layout_marginLeft">15dp</item>
+    <item name="android:layout_marginRight">15dp</item>
+    <item name="android:background">@color/dividerX1</item>
+  </style>
+
+  <!-- 分割线 -->
+  <style name="style_divide_line_x2">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1px</item>
+    <item name="android:background">@color/dividerX2</item>
+  </style>
+
+  <style name="style_divide_line_x2_margin_15">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1px</item>
+    <item name="android:layout_marginLeft">15dp</item>
+    <item name="android:layout_marginRight">15dp</item>
+    <item name="android:background">@color/dividerX2</item>
+  </style>
+  <!-- 分割线 -->
+  <style name="style_divide_line_x3">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1px</item>
+    <item name="android:background">@color/dividerX3</item>
+  </style>
+
+  <style name="style_divide_line_x3_margin_15">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">1px</item>
+    <item name="android:layout_marginLeft">15dp</item>
+    <item name="android:layout_marginRight">15dp</item>
+    <item name="android:background">@color/dividerX3</item>
+  </style>
+
+  <!-- match_parent离左右15dp的红色按钮 -->
+  <style name="style_btn_large_corners5_red" parent="@style/Widget.AppCompat.Button.Borderless">
+    <item name="android:layout_width">match_parent</item>
+    <item name="android:layout_height">40dp</item>
+    <item name="android:layout_marginLeft">15dp</item>
+    <item name="android:layout_marginRight">15dp</item>
+    <item name="android:background">@drawable/bg_border_corners5_red</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+  <!-- 中等大小的红色按钮 -->
+  <style name="style_btn_middle_corners5_red" parent="@style/Widget.AppCompat.Button.Borderless">
+    <item name="android:layout_width">125dp</item>
+    <item name="android:layout_height">40dp</item>
+    <item name="android:background">@drawable/bg_border_corners5_red</item>
+    <item name="android:textSize">16sp</item>
+    <item name="android:textColor">@color/white</item>
+  </style>
+
+</resources>

@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <declare-styleable name="TopDragLayout">
+    <!-- 拖动view隐藏时底部留的高度 -->
+    <attr name="remain_height" format="dimension"/>
+    <!-- 拖动隐藏/显示的临界值高度 -->
+    <attr name="threshold_height" format="dimension"/>
+  </declare-styleable>
+</resources>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <color name="colorPrimary">#3F51B5</color>
+  <color name="colorPrimaryDark">#303F9F</color>
+  <color name="colorAccent">#FF4081</color>
+
+  <color name="main_color_normal">#e65454</color>
+  <color name="main_color_pressed">#d44a4a</color>
+
+  <color name="white">#ffffffff</color>
+
+  <color name="textColorPrimary">#666</color>
+  <color name="textColor">#333</color>
+
+  <!--白色背景分割线-->
+  <color name="dividerX1">#e5e5e5</color>
+  <!--H1背景色分割线-->
+  <color name="dividerX2">#d6d6d6</color>
+  <!--特殊情况需加深分割线-->
+  <color name="dividerX3">#ccc</color>
+
+  <!--背景色-->
+  <!--大背景色-->
+  <color name="bgH1">#f0f0f0</color>
+  <!--小背景色-->
+  <color name="bgH2">#fafafa</color>
+  <!--特殊深色背景-->
+  <color name="bgH3">#222c39</color>
+  <!--不可点击背景色-->
+  <color name="bgH4">#d6d6d6</color>
+
+</resources>

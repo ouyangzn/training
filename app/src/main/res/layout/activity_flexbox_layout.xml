@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+  android:layout_width="match_parent"
+  android:layout_height="match_parent"
+  android:orientation="vertical"
+  >
+
+  <Button
+      android:id="@+id/btn_add"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_margin="5dp"
+      android:background="@drawable/bg_border_corners5_red"
+      android:text="添加标签"
+      android:textColor="#ffffff"
+      />
+  <Button
+      android:id="@+id/btn_get_selected_tag"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_gravity="center_horizontal"
+      android:layout_margin="5dp"
+      android:background="@drawable/bg_border_corners5_red"
+      android:text="获取选中标签"
+      android:textColor="#ffffff"
+      />
+
+  <ScrollView
+      android:id="@+id/scrollView"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+
+    <com.google.android.flexbox.FlexboxLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/layout_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        app:flexWrap="wrap"
+        app:alignItems="stretch"
+        app:alignContent="stretch" >
+
+      <TextView
+          android:id="@+id/textview1"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+          android:gravity="center"
+          android:background="@drawable/shape_bg_tag"
+          android:text="标签1"
+          android:textColor="@color/color_tag"
+          />
+
+      <TextView
+          android:id="@+id/textview2"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+          android:gravity="center"
+          android:background="@drawable/shape_bg_tag"
+          android:text="标签2"
+          android:textColor="@color/color_tag"
+          />
+
+      <TextView
+          android:id="@+id/textview3"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_margin="5dp"
+          android:gravity="center"
+          android:background="@drawable/shape_bg_tag"
+          android:text="标签3"
+          android:textColor="@color/color_tag"
+          />
+    </com.google.android.flexbox.FlexboxLayout>
+
+  </ScrollView>
+
+
+
+</LinearLayout>
+
+

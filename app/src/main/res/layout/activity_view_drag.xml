@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    >
+  <TextView
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#f00"
+      android:gravity="center"
+      android:padding="15dp"
+      android:text="固定的view"
+      />
+  <com.ouyangzn.view.TopDragLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#0f0"
+      app:remain_height="15dp"
+      app:threshold_height="10dp"
+      >
+
+    <include layout="@layout/view_horizontal_scroll"/>
+
+    <!--<LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        >
+      <TextView
+          android:layout_width="match_parent"
+          android:layout_height="50dp"
+          android:background="#888"
+          android:gravity="center"
+          android:padding="15dp"
+          android:text="用于拖动的view"
+          />
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_horizontal"
+          android:src="@drawable/ic_arrow_down"
+          />
+    </LinearLayout>-->
+  </com.ouyangzn.view.TopDragLayout>
+
+  <RelativeLayout
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:background="#8888"
+      >
+
+<!--
+    <com.ouyangzn.view.CornerMarkText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_alignParentRight="true"
+        android:padding="5dp"
+        android:background="#8888"
+        android:text="java"
+        android:textColor="#ff0000"
+        android:textSize="10sp"
+        />
+-->
+    <com.ouyangzn.view.CornerMarkText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="20dp"
+        android:layout_alignParentRight="true"
+        android:background="#8000ff00"
+        app:bg_color="#800000ff"
+        app:text_color="#ffffff"
+        app:text="java"
+        app:text_size="10sp"
+        />
+
+  </RelativeLayout>
+
+</LinearLayout>

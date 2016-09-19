@@ -1,0 +1,88 @@
+{
+  "collectUser": "55138053a29d0",
+  "contact": {
+    "phones": [],
+    "null": true
+  },
+  "image": {
+    "images": [
+      {
+        "filename": "http://test.platform.chargerlink.com/uploads/plugs/2c/55/7f/61267723ad7fd54d6b43a9c485",
+        "filepath": null,
+        "height": 640,
+        "width": 360
+      }
+    ],
+    "null": false
+  },
+  "isCollectStaff": 1,
+  "location": {
+    "address": "粤海街道富诚大厦(高新南一道)富诚大厦",
+    "addressExt": "",
+    "city": "深圳市",
+    "district": "南山区",
+    "latitude": 22.538546,
+    "longitude": 113.954575,
+    "province": "广东省",
+    "null": false
+  },
+  "name": "6666",
+  "openTime": {
+    "closeTimeWeekend": "",
+    "closeTimeWorkday": "",
+    "openAllDay": false,
+    "openTimeWeekend": "",
+    "openTimeWorkday": "",
+    "null": true
+  },
+  "operator": null,
+  "park": [
+    {
+      "deviceInfos": [
+        {
+          "deviceInfo": "2b3bf3eee2475e03885a110e9acaab61",
+          "deviceRemark": null,
+          "parkingSpaceNumbers": "1 2"
+        }
+      ],
+      "parkName": "地下"
+    }
+  ],
+  "payment": {
+    "paymentDescription": "",
+    "paymentType": -1,
+    "priceDescription": "",
+    "priceParking": "",
+    "pricePerUnit": 0,
+    "priceService": "",
+    "null": false
+  },
+  "propertyType": [
+    "1",
+    "2",
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "100"
+  ],
+  "remark": "",
+  "service": {
+    "serviceDescription": "内部使用",
+    "serviceType": 3,
+    "null": false
+  },
+  "simpleDevice": [
+    {
+      "deviceDescription": "",
+      "deviceRemark": "",
+      "null": true
+    }
+  ],
+  "status": {
+    "inuse": 1,
+    "inuseTime": ""
+  }
+}
