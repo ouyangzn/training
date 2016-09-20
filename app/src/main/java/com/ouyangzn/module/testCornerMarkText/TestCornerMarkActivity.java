@@ -3,11 +3,14 @@ package com.ouyangzn.module.testCornerMarkText;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.MotionEvent;
+import android.view.View;
 import android.widget.ListView;
 import butterknife.BindView;
 import com.ouyangzn.R;
 import com.ouyangzn.base.BaseActivity;
 import com.ouyangzn.base.DividerItemDecoration;
+import com.ouyangzn.utils.Log;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -32,6 +35,7 @@ public class TestCornerMarkActivity extends BaseActivity {
     mRecyclerView.addItemDecoration(new DividerItemDecoration(mContext));
     mRecyclerView.setAdapter(mRecyclerAdapter);
     //mListView.setAdapter(mListViewAdapter);
+
   }
 
   private List<String> getTestData() {
@@ -46,7 +50,8 @@ public class TestCornerMarkActivity extends BaseActivity {
     list.add("python");
     list.add("swift");
     list.add("object-c");
-    list.add("test");
+    list.add("abcdefghijklmnopqrstuvwxyz");
+    list.add("ABCDEFGHIJKLMNOPQRSTUVWXYZ");
     list.add("object-c");
     list.add("swift");
     list.add("python");

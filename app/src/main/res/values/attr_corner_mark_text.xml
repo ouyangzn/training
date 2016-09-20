@@ -10,5 +10,9 @@
 
     <attr name="text_color" format="color"/>
 
+    <attr name="min_size" format="dimension"/>
+
+    <attr name="max_size" format="dimension"/>
+
   </declare-styleable>
 </resources>

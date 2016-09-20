@@ -35,8 +35,8 @@ public class TestLayout extends LinearLayout {
 
   @Override public boolean onTouchEvent(MotionEvent event) {
     Log.d(TAG, "--------------onTouchEvent------------------");
-    //return super.onTouchEvent(event);
-    return true;
+    return super.onTouchEvent(event);
+    //return true;
   }
 
   @Override public boolean onInterceptTouchEvent(MotionEvent ev) {

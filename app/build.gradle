@@ -33,7 +33,7 @@ dependencies {
 
   // RecyclerViewAdapter
   compile "com.ouyangzn.lib:BaseRecyclerViewAdapter:${BASE_RECYCLER_ADAPTER_VERSION}"
-  //
+  // utils
   compile "com.ouyangzn.lib:utils:${UTILS_VERSION}"
 
   // rxJava系列
