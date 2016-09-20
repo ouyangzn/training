@@ -12,6 +12,7 @@
       android:layout_height="wrap_content"
       android:layout_margin="20dp"
       android:layout_alignParentRight="true"
+      android:padding="5dp"
       android:background="#00ff00"
       app:bg_color="#0000ff"
       app:text_color="#ffffff"
