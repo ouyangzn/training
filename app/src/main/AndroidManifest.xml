@@ -37,5 +37,7 @@
     </activity>
     <activity android:name=".module.testCornerMarkText.TestCornerMarkActivity">
     </activity>
+    <activity android:name=".module.testRealm.RealmActivity">
+    </activity>
   </application>
 </manifest>

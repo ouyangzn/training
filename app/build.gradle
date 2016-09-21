@@ -1,5 +1,6 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
+apply plugin: 'realm-android'
 
 android {
   compileSdkVersion 24
@@ -34,7 +35,7 @@ dependencies {
   // RecyclerViewAdapter
   compile "com.ouyangzn.lib:BaseRecyclerViewAdapter:${BASE_RECYCLER_ADAPTER_VERSION}"
   // utils
-  compile "com.ouyangzn.lib:utils:${UTILS_VERSION}"
+  compile "com.ouyangzn.lib:UtilsLibarary:${UTILS_VERSION}"
 
   // rxJava系列
   compile "io.reactivex:rxjava:${RXJAVA_VERSION}"

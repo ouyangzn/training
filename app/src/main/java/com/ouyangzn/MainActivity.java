@@ -6,6 +6,7 @@ import com.ouyangzn.base.BaseActivity;
 import com.ouyangzn.module.testCoordinatorLayout.CoordinatorActivity;
 import com.ouyangzn.module.testCornerMarkText.TestCornerMarkActivity;
 import com.ouyangzn.module.testFlexboxLayout.FlexboxLayoutActivity;
+import com.ouyangzn.module.testRealm.RealmActivity;
 import com.ouyangzn.module.testRecyclerView.RecyclerViewActivity;
 import com.ouyangzn.module.testRxJava.RxJavaActivity;
 import com.ouyangzn.module.testViewDrag.ViewDragActivity;
@@ -63,5 +64,9 @@ public class MainActivity extends BaseActivity {
 
   public void testCornerMarkText(View view) {
     openActivity(TestCornerMarkActivity.class);
+  }
+
+  public void testRealm(View view) {
+    openActivity(RealmActivity.class);
   }
 }

@@ -84,7 +84,7 @@ public class CornerMarkText extends View {
     mTextSize = ta.getDimensionPixelSize(R.styleable.CornerMarkText_text_size, ScreenUtils.sp2px(context, 10));
     mTextColor = ta.getColor(R.styleable.CornerMarkText_text_color, getResources().getColor(R.color.colorAccent));
     mMinSize = ta.getDimensionPixelOffset(R.styleable.CornerMarkText_min_size, ScreenUtils.dp2px(context, 20));
-    mMaxSize = ta.getDimensionPixelOffset(R.styleable.CornerMarkText_max_size, ScreenUtils.dp2px(context, 40));
+    mMaxSize = ta.getDimensionPixelOffset(R.styleable.CornerMarkText_max_size, ScreenUtils.dp2px(context, 50));
     ta.recycle();
     initTextPaint();
     initTextBgPaint();
@@ -174,8 +174,8 @@ public class CornerMarkText extends View {
       width = widthSize;
       Log.d(TAG, "----------measureWidth.widthMode = EXACTLY , mText = " + mText + ", width = " + width);
     } else {
-      // 以正方形的对角线来写字，需把字的宽高 / 1.5 ，字写在对角线上，宽高要增加2个字母的宽度
-      width = (int)(mTextPaint.measureText(mText) * 2 / 3 + mTextPaint.measureText("M") * 2 + (getPaddingRight() + getPaddingLeft()));
+      // 以正方形的对角线来写字，需把字的宽高 / 1.5 ，字写在对角线上，宽高要增加1.5个字母的宽度
+      width = (int)(mTextPaint.measureText(mText) * 2 / 3 + mTextPaint.measureText("M") * 1.5 + (getPaddingRight() + getPaddingLeft()));
       Log.d(TAG, "----------measureWidth.widthMode ≠ EXACTLY , mText = " + mText + " ,measureTextWidth = " + mTextPaint.measureText(mText));
       if (widthMode == MeasureSpec.AT_MOST) {
         width = Math.min(widthSize, width);

@@ -11,13 +11,14 @@ buildscript {
     // in the individual module build.gradle files
     // butterknife
     classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
+    // realm
+    classpath "io.realm:realm-gradle-plugin:${REALM_VERSION}"
   }
 }
 
 allprojects {
   repositories {
     jcenter()
-    maven { url 'http://192.168.60.204:8081/repository/Android-lib'}
   }
 }
 
