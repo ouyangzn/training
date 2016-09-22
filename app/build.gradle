@@ -35,7 +35,7 @@ dependencies {
   // RecyclerViewAdapter
   compile "com.ouyangzn.lib:BaseRecyclerViewAdapter:${BASE_RECYCLER_ADAPTER_VERSION}"
   // utils
-  compile "com.ouyangzn.lib:UtilsLibarary:${UTILS_VERSION}"
+  compile "com.ouyangzn.lib:Utils:${UTILS_VERSION}"
 
   // rxJava系列
   compile "io.reactivex:rxjava:${RXJAVA_VERSION}"

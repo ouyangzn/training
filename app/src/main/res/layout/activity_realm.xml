@@ -1,9 +1,103 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
+<LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context="com.ouyangzn.module.testRealm.RealmActivity"
     >
-</RelativeLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      >
+    <Button
+        android:id="@+id/btn_insert_dog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="插入dog"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/btn_delete_dog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="删除dog"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/btn_query_dog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="查询dog"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/btn_update_dog"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="更新dog"
+        android:textAllCaps="false"
+        />
+  </LinearLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:orientation="horizontal"
+      >
+    <Button
+        android:id="@+id/btn_insert_person"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="插入Person"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/btn_delete_person"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="删除Person"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/btn_query_person"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="查询Person"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:id="@+id/btn_update_person"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:text="更新Person"
+        android:textAllCaps="false"
+        />
+  </LinearLayout>
+  <LinearLayout
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      >
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_dog"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycler_person"
+        android:layout_width="0dp"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        />
+  </LinearLayout>
+</LinearLayout>
