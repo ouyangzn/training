@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2016.  ouyangzn   <email : ouyangzn@163.com>
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+ */
+
 package com.ouyangzn.module.testCoordinatorLayout;
 
 import android.content.Intent;
@@ -5,24 +21,17 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.Toolbar;
 import android.view.KeyEvent;
 import android.view.View;
 import com.ouyangzn.R;
 import com.ouyangzn.base.BaseActivity;
 import com.ouyangzn.lib.utils.ScreenUtils;
-import com.ouyangzn.lib.utils.StringUtil;
-import com.ouyangzn.listener.BottomTrackListener;
 import com.ouyangzn.listener.QuickReturnOnScrollListener;
-import com.ouyangzn.listener.TopDecoration;
-import com.ouyangzn.listener.TopTrackListener;
 import com.ouyangzn.module.testRxJava.RxJavaActivity;
 import com.ouyangzn.recyclerview.BaseRecyclerViewAdapter;
-import com.ouyangzn.utils.Log;
 import com.yalantis.starwars.TilesFrameLayout;
 import com.yalantis.starwars.interfaces.TilesFrameLayoutListener;
 import java.util.ArrayList;
-import java.util.Date;
 
 public class CoordinatorActivity extends BaseActivity implements View.OnClickListener,
     TilesFrameLayoutListener {
