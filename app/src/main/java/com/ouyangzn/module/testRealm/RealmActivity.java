@@ -20,6 +20,7 @@ import io.realm.Case;
 import io.realm.Realm;
 import io.realm.RealmChangeListener;
 import io.realm.RealmResults;
+import io.realm.Sort;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -96,7 +97,6 @@ public class RealmActivity extends BaseActivity {
   }
 
   private void deletePerson() {
-    //mRealm.delete(Person.class);
     mRealm.executeTransactionAsync(new Realm.Transaction() {
       @Override public void execute(Realm realm) {
         boolean result =
@@ -140,15 +140,21 @@ public class RealmActivity extends BaseActivity {
   }
 
   private void queryPerson() {
+    final long beginTime = System.currentTimeMillis();
     RealmResults<Person> results =
         // 查询的表
         mRealm.where(Person.class)
             // name like '%person%'
             .contains("name", "person", Case.INSENSITIVE)
             // 异步查询所有数据
-            .findAllAsync();
+            .findAllSortedAsync("name", Sort.ASCENDING);
     results.addChangeListener(new RealmChangeListener<RealmResults<Person>>() {
       @Override public void onChange(RealmResults<Person> element) {
+        Log.d(TAG, "----------查询person用时："
+            + (System.currentTimeMillis() - beginTime)
+            + " ,数据量 = "
+            + element.size());
+        long time = System.currentTimeMillis();
         // RealmResults不支持clear、addAll之类的操作
         System.gc();
         long total = Runtime.getRuntime().totalMemory(); // byte
@@ -167,6 +173,7 @@ public class RealmActivity extends BaseActivity {
         Log.d(TAG, "----------after,内存占用:" + (total1 - m2));
         Log.d(TAG, "----------queryPerson.result.size = " + personList.size());
         mPersonAdapter.resetData(personList.size() > 30 ? personList.subList(0, 30) : personList);
+        Log.d(TAG, "----------处理person数据用时：" + (System.currentTimeMillis() - time));
       }
     });
   }
