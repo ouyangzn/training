@@ -18,6 +18,7 @@ package com.ouyangzn.module.testRealm;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import butterknife.BindView;
@@ -27,6 +28,7 @@ import com.ouyangzn.R;
 import com.ouyangzn.base.BaseActivity;
 import com.ouyangzn.base.DividerItemDecoration;
 import com.ouyangzn.module.testRealm.adapter.DogRecyclerAdapter;
+import com.ouyangzn.module.testRealm.adapter.PersonAdapter;
 import com.ouyangzn.module.testRealm.adapter.PersonRecyclerAdapter;
 import com.ouyangzn.module.testRealm.bean.Dog;
 import com.ouyangzn.module.testRealm.bean.Person;
@@ -52,7 +54,8 @@ public class RealmActivity extends BaseActivity {
   long beginTime;
   private Realm mRealm;
   private DogRecyclerAdapter mDogAdapter;
-  private PersonRecyclerAdapter mPersonAdapter;
+  //private PersonRecyclerAdapter mPersonAdapter;
+  private PersonAdapter mPersonAdapter;
 
   @Override protected int getContentResId() {
     return R.layout.activity_realm;
@@ -61,7 +64,8 @@ public class RealmActivity extends BaseActivity {
   @Override protected void initData() {
     mRealm = App.getInstance().getGlobalRealm();
     mDogAdapter = new DogRecyclerAdapter(new ArrayList<Dog>(0));
-    mPersonAdapter = new PersonRecyclerAdapter(new ArrayList<Person>(0));
+    //mPersonAdapter = new PersonRecyclerAdapter(new ArrayList<Person>(0));
+    mPersonAdapter = new PersonAdapter();
   }
 
   @Override protected void initView(Bundle savedInstanceState) {
@@ -70,8 +74,11 @@ public class RealmActivity extends BaseActivity {
     mDogRecycler.addItemDecoration(new DividerItemDecoration(mContext));
     mDogRecycler.setAdapter(mDogAdapter);
 
+    LayoutInflater inflater = getLayoutInflater();
     mPersonRecycler.setLayoutManager(new LinearLayoutManager(mContext));
     mPersonRecycler.addItemDecoration(new DividerItemDecoration(mContext));
+    View moreView = inflater.inflate(R.layout.item_load_more, mPersonRecycler, false);
+    mPersonAdapter.setLoadMoreView(moreView);
     mPersonRecycler.setAdapter(mPersonAdapter);
   }
 
@@ -169,26 +176,27 @@ public class RealmActivity extends BaseActivity {
             + (System.currentTimeMillis() - beginTime)
             + " ,数据量 = "
             + element.size());
-        long time = System.currentTimeMillis();
+        //long time = System.currentTimeMillis();
         // RealmResults不支持clear、addAll之类的操作
-        System.gc();
-        long total = Runtime.getRuntime().totalMemory(); // byte
-        long m1 = Runtime.getRuntime().freeMemory();
-        Log.d(TAG, "----------before,内存占用:" + (total - m1));
-        List<Person> personList;
-        if (element.size() > 30) {
-          personList = new ArrayList<>(30);
-          personList.addAll(element.subList(0, 30));
-        } else {
-          personList = new ArrayList<>(element.size());
-          personList.addAll(element);
-        }
-        long total1 = Runtime.getRuntime().totalMemory();
-        long m2 = Runtime.getRuntime().freeMemory();
-        Log.d(TAG, "----------after,内存占用:" + (total1 - m2));
-        Log.d(TAG, "----------queryPerson.result.size = " + personList.size());
-        mPersonAdapter.resetData(personList.size() > 30 ? personList.subList(0, 30) : personList);
-        Log.d(TAG, "----------处理person数据用时：" + (System.currentTimeMillis() - time));
+        //System.gc();
+        //long total = Runtime.getRuntime().totalMemory(); // byte
+        //long m1 = Runtime.getRuntime().freeMemory();
+        //Log.d(TAG, "----------before,内存占用:" + (total - m1));
+        //List<Person> personList;
+        //if (element.size() > 30) {
+        //  personList = new ArrayList<>(30);
+        //  personList.addAll(element.subList(0, 30));
+        //} else {
+        //  personList = new ArrayList<>(element.size());
+        //  personList.addAll(element);
+        //}
+        //long total1 = Runtime.getRuntime().totalMemory();
+        //long m2 = Runtime.getRuntime().freeMemory();
+        //Log.d(TAG, "----------after,内存占用:" + (total1 - m2));
+        //Log.d(TAG, "----------queryPerson.result.size = " + element.size());
+        //mPersonAdapter.resetData(personList.size() > 30 ? personList.subList(0, 30) : personList);
+        //Log.d(TAG, "----------处理person数据用时：" + (System.currentTimeMillis() - time));
+        mPersonAdapter.setData(element);
       }
     });
   }

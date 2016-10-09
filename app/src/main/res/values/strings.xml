@@ -16,4 +16,5 @@
 <resources>
   <string name="app_name">Example</string>
   <string name="title_activity_coordinator">CoordinatorActivity</string>
+  <string name="loading">loading</string>
 </resources>
