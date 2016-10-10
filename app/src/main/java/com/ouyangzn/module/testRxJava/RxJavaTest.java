@@ -52,32 +52,27 @@ public class RxJavaTest extends AndroidTestCase {
     list.add("1");
     list.add("2");
     list.add("3");
-    Observable.from(list)
-        .flatMap(new Func1<String, Observable<String>>() {
-          @Override public Observable<String> call(String s) {
-            count++;
-            if (count == 2) {
-              return Observable.error(new RuntimeException("testFrom.抛个异常玩玩"));
-            }
-            return Observable.just(firstString(s));
-          }
-        })
-        .flatMap(new Func1<String, Observable<String>>() {
-          @Override public Observable<String> call(String s) {
-            return Observable.just(getString(s));
-          }
-        })
-        .subscribeOn(Schedulers.io())
-        .observeOn(Schedulers.io())
-        .subscribe(new Action1<String>() {
-          @Override public void call(String s) {
-            Log.d(TAG, "----------------testFrom.subscribe.result = " + s);
-          }
-        }, new Action1<Throwable>() {
-          @Override public void call(Throwable e) {
-            Log.d(TAG, "----------------testFrom.出错:" + e);
-          }
-        });
+    Observable.from(list).flatMap(new Func1<String, Observable<String>>() {
+      @Override public Observable<String> call(String s) {
+        count++;
+        if (count == 2) {
+          return Observable.error(new RuntimeException("testFrom.抛个异常玩玩"));
+        }
+        return Observable.just(firstString(s));
+      }
+    }).flatMap(new Func1<String, Observable<String>>() {
+      @Override public Observable<String> call(String s) {
+        return Observable.just(getString(s));
+      }
+    }).subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(new Action1<String>() {
+      @Override public void call(String s) {
+        Log.d(TAG, "----------------testFrom.subscribe.result = " + s);
+      }
+    }, new Action1<Throwable>() {
+      @Override public void call(Throwable e) {
+        Log.d(TAG, "----------------testFrom.出错:" + e);
+      }
+    });
   }
 
   public void testBuffer() {
@@ -85,31 +80,25 @@ public class RxJavaTest extends AndroidTestCase {
     list.add("1");
     list.add("2");
     list.add("3");
-    Observable.from(list)
-        .flatMap(new Func1<String, Observable<String>>() {
-          @Override public Observable<String> call(String s) {
-            return Observable.just(firstString(s));
-          }
-        })
-        .buffer(list.size())
-        .flatMap(new Func1<List<String>, Observable<String>>() {
-          @Override public Observable<String> call(List<String> strings) {
-            Log.d(TAG, "--------------testBuffer.strings = " + strings);
-            //return Observable.just(getString(strings.get(strings.size() - 1)));
-            return Observable.error(new Exception("testBuffer.抛个异常玩玩"));
-          }
-        })
-        .subscribeOn(Schedulers.io())
-        .observeOn(Schedulers.io())
-        .subscribe(new Action1<String>() {
-          @Override public void call(String s) {
-            Log.d(TAG, "----------------testBuffer.subscribe.result = " + s);
-          }
-        }, new Action1<Throwable>() {
-          @Override public void call(Throwable e) {
-            Log.d(TAG, "----------------testBuffer.出错:" + e);
-          }
-        });
+    Observable.from(list).flatMap(new Func1<String, Observable<String>>() {
+      @Override public Observable<String> call(String s) {
+        return Observable.just(firstString(s));
+      }
+    }).buffer(list.size()).flatMap(new Func1<List<String>, Observable<String>>() {
+      @Override public Observable<String> call(List<String> strings) {
+        Log.d(TAG, "--------------testBuffer.strings = " + strings);
+        //return Observable.just(getString(strings.get(strings.size() - 1)));
+        return Observable.error(new Exception("testBuffer.抛个异常玩玩"));
+      }
+    }).subscribeOn(Schedulers.io()).observeOn(Schedulers.io()).subscribe(new Action1<String>() {
+      @Override public void call(String s) {
+        Log.d(TAG, "----------------testBuffer.subscribe.result = " + s);
+      }
+    }, new Action1<Throwable>() {
+      @Override public void call(Throwable e) {
+        Log.d(TAG, "----------------testBuffer.出错:" + e);
+      }
+    });
   }
 
   public void testMerge() {
@@ -137,7 +126,7 @@ public class RxJavaTest extends AndroidTestCase {
   }
 
   public void testMapOrSwitchMap(boolean map) {
-    String[] strings = {"testMapOrSwitchMap-1", "testMapOrSwitchMap-2", "testMapOrSwitchMap-3"};
+    String[] strings = { "testMapOrSwitchMap-1", "testMapOrSwitchMap-2", "testMapOrSwitchMap-3" };
     Observable<String> observable = Observable.from(strings).subscribeOn(Schedulers.io());
     if (map) {
       observable.map(new Func1<String, String>() {
@@ -166,8 +155,8 @@ public class RxJavaTest extends AndroidTestCase {
           }).subscribeOn(Schedulers.newThread());
         }
       })
-      // 如果跟上面分开写，会导致switchMap的作用失效
-      .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
+          // 如果跟上面分开写，会导致switchMap的作用失效
+          .observeOn(AndroidSchedulers.mainThread()).subscribe(new Action1<String>() {
         @Override public void call(String s) {
           Toast.makeText(mContext, "testSwitchMap-->subscribe结果: " + s, Toast.LENGTH_SHORT).show();
           Log.d(TAG, "----------testSwitchMap-->subscribe结果: " + s);
@@ -196,6 +185,23 @@ public class RxJavaTest extends AndroidTestCase {
         });
   }
 
+  public void testConcatAndFirst() {
+    Observable.concat(getTestFirstObservable(1), getTestFirstObservable(2),
+        getTestFirstObservable(3)).filter(new Func1<Integer, Boolean>() {
+      @Override public Boolean call(Integer integer) {
+        return integer != 1;
+      }
+    }).first().subscribeOn(Schedulers.io()).subscribe(new Action1<Integer>() {
+      @Override public void call(Integer o) {
+        Log.d(TAG, "----------testFirst = " + o);
+      }
+    }, new Action1<Throwable>() {
+      @Override public void call(Throwable throwable) {
+        Log.e(TAG, "----------出错啦：", throwable);
+      }
+    });
+  }
+
   private String firstString(String s) {
     Log.d(TAG, "----------------firstString = " + s);
     return s;
@@ -206,6 +212,18 @@ public class RxJavaTest extends AndroidTestCase {
     return "s" + s;
   }
 
+  private Observable<Integer> getTestFirstObservable(final int sleepTime) {
+    return Observable.create(new Observable.OnSubscribe<Integer>() {
+      @Override public void call(Subscriber<? super Integer> subscriber) {
+        Log.d(TAG, "----------getTestFirstObservable.sleepTime = " + sleepTime);
+        ThreadUtil.sleep(sleepTime * 1000);
+        Log.d(TAG, "----------getTestFirstObservable.sleepTime = " + sleepTime);
+        subscriber.onNext(sleepTime);
+        subscriber.onCompleted();
+      }
+    }).subscribeOn(Schedulers.io());
+  }
+
   class TestClass {
     public String name;
 
@@ -213,5 +231,4 @@ public class RxJavaTest extends AndroidTestCase {
       this.name = name;
     }
   }
-
 }

@@ -184,6 +184,10 @@ public class RxJavaActivity extends BaseActivity {
         });
   }
 
+  public void testConcatAndFirst(View view) {
+    mRxJavaTest.testConcatAndFirst();
+  }
+
   private String getTestStr() {
     Log.d(TAG, "-----------getTestStr.当前线程：" + Thread.currentThread().getName());
     return "测试字符串";
