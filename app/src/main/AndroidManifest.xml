@@ -42,5 +42,7 @@
     </activity>
     <activity android:name=".module.testRealm.RealmActivity">
     </activity>
+    <activity android:name=".module.testLoadingView.LoadingActivity">
+    </activity>
   </application>
 </manifest>

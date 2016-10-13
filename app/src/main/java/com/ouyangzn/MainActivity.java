@@ -22,6 +22,7 @@ import com.ouyangzn.base.BaseActivity;
 import com.ouyangzn.module.testCoordinatorLayout.CoordinatorActivity;
 import com.ouyangzn.module.testCornerMarkText.TestCornerMarkActivity;
 import com.ouyangzn.module.testFlexboxLayout.FlexboxLayoutActivity;
+import com.ouyangzn.module.testLoadingView.LoadingActivity;
 import com.ouyangzn.module.testRealm.RealmActivity;
 import com.ouyangzn.module.testRecyclerView.RecyclerViewActivity;
 import com.ouyangzn.module.testRxJava.RxJavaActivity;
@@ -32,13 +33,6 @@ import com.ouyangzn.utils.Log;
 
 public class MainActivity extends BaseActivity {
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
-    super.onCreate(savedInstanceState);
-    Log.d(TAG, "------------------getName = " + MainActivity.class.getName());
-    Log.d(TAG, "------------------getSimpleName = " + MainActivity.class.getSimpleName());
-    Log.d(TAG, "------------------getCanonicalName = " + MainActivity.class.getCanonicalName());
-  }
-
   @Override protected int getContentResId() {
     return R.layout.activity_main;
   }
@@ -48,6 +42,9 @@ public class MainActivity extends BaseActivity {
   }
 
   @Override protected void initData() {
+    Log.d(TAG, "------------------getName = " + MainActivity.class.getName());
+    Log.d(TAG, "------------------getSimpleName = " + MainActivity.class.getSimpleName());
+    Log.d(TAG, "------------------getCanonicalName = " + MainActivity.class.getCanonicalName());
   }
 
   public void testRxJava(View view) {
@@ -84,5 +81,9 @@ public class MainActivity extends BaseActivity {
 
   public void testRealm(View view) {
     openActivity(RealmActivity.class);
+  }
+
+  public void testLoadingView(View view) {
+    openActivity(LoadingActivity.class);
   }
 }

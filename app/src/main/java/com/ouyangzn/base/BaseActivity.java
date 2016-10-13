@@ -41,7 +41,7 @@ public abstract class BaseActivity extends AppCompatActivity {
   protected Context mContext;
   private com.ouyangzn.lib.utils.Toast mToast;
 
-  @Override protected void onCreate(Bundle savedInstanceState) {
+  @Override protected final void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);
     TAG = this.getClass().getSimpleName();
     mContext = this;
