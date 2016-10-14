@@ -44,6 +44,7 @@ public class TopDragLayout extends FrameLayout {
   private int mRemainHeight;
   /** 拖动隐藏显示的临界值高度 */
   private int mThresholdHeight;
+  private float downY;
 
   public TopDragLayout(Context context) {
     this(context, null);
@@ -104,19 +105,69 @@ public class TopDragLayout extends FrameLayout {
 
   @Override public boolean onInterceptTouchEvent(MotionEvent ev) {
     boolean helpResult = mDragHelper.shouldInterceptTouchEvent(ev);
-    boolean intercept = false;
-    switch (MotionEventCompat.getActionMasked(ev)) {
-      case MotionEvent.ACTION_MOVE:
-        // 判断是否该拦截此事件自己消费--->模仿support-v4中的DrawerLayout处理方式
-        intercept = mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL);
-        // 此时如果需要拦截事件，需要手动捕获拖动的view
-        if (intercept) mDragHelper.captureChildView(this.getChildAt(0), ev.getPointerId(0));
-        break;
+    View child = getChildAt(0);
+    if (isScrollHorizontal(child)) {
+      boolean intercept = false;
+      switch (MotionEventCompat.getActionMasked(ev)) {
+        case MotionEvent.ACTION_MOVE:
+          // 判断是否该拦截此事件自己消费--->模仿support-v4中的DrawerLayout处理方式
+          intercept = mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL);
+          // 此时如果需要拦截事件，需要手动捕获拖动的view
+          if (intercept) mDragHelper.captureChildView(child, ev.getPointerId(0));
+          break;
+      }
+      return helpResult || intercept;
     }
-    return helpResult | intercept;
+    if (isScrollVertical(child)) {
+      // 如果子View被隐藏了，执行拖动出来
+      if (child.getBottom() == mRemainHeight) {
+        mDragHelper.captureChildView(child, ev.getPointerId(0));
+        return true;
+      }
+      boolean intercept = false;
+      switch (MotionEventCompat.getActionMasked(ev)) {
+        case MotionEvent.ACTION_DOWN:
+          downY = ev.getY();
+          break;
+        case MotionEvent.ACTION_MOVE:
+          // 手指往下滑动
+          if (ev.getY() - downY > 0) {
+            intercept = !ViewCompat.canScrollVertically(child, -1);
+            Log.d(TAG, "----------手指下滑，intercept = " + intercept);
+          } else {
+            intercept = !ViewCompat.canScrollVertically(child, 1);
+            Log.d(TAG, "----------手指上滑，intercept = " + intercept);
+          }
+          break;
+      }
+      Log.d(TAG, "----------return = " + (helpResult || intercept));
+      // 此时如果需要拦截事件，需要手动捕获拖动的view
+      if (intercept) mDragHelper.captureChildView(child, ev.getPointerId(0));
+      return helpResult || intercept;
+    }
+    return helpResult/* || !canChildScrollDown()*/;
+  }
+
+  private boolean isScrollHorizontal(View view) {
+    //if (view instanceof RecyclerView) {
+    //  RecyclerView recyclerView = (RecyclerView) view;
+    //  RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+    //  if (layoutManager instanceof LinearLayoutManager) {
+    //    LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
+    //    if (manager.getLayoutDirection() == LinearLayoutManager.HORIZONTAL) {
+    //      return true;
+    //    }
+    //  }
+    //}
+    return ViewCompat.canScrollHorizontally(view, -1) || ViewCompat.canScrollHorizontally(view, 1);
+  }
+
+  private boolean isScrollVertical(View view) {
+    return ViewCompat.canScrollVertically(view, -1) || ViewCompat.canScrollVertically(view, 1);
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
+    Log.d(TAG, "---------onTouchEvent---------");
     mDragHelper.processTouchEvent(event);
     return true;
   }

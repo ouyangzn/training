@@ -14,20 +14,19 @@
   ~ limitations under the License.
   ~
   -->
-
-<com.ouyangzn.view.UpDownSwipeLayout
+<com.ouyangzn.view.Test1Layout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.ouyangzn.module.testViewTouchDispatcher.DispatcherActivity"
     >
-  <com.ouyangzn.view.TestLayout
+  <com.ouyangzn.view.Test2Layout
       android:layout_width="match_parent"
       android:layout_height="match_parent"
       android:orientation="vertical"
       >
-    <com.ouyangzn.view.TestTestLayout
+    <com.ouyangzn.view.Test3Layout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
@@ -39,6 +38,6 @@
           android:layout_gravity="center"
           android:text="测试事件分发"
           />
-    </com.ouyangzn.view.TestTestLayout>
-  </com.ouyangzn.view.TestLayout>
-</com.ouyangzn.view.UpDownSwipeLayout>
+    </com.ouyangzn.view.Test3Layout>
+  </com.ouyangzn.view.Test2Layout>
+</com.ouyangzn.view.Test1Layout>

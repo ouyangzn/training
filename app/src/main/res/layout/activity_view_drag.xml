@@ -14,7 +14,6 @@
   ~ limitations under the License.
   ~
   -->
-
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -37,10 +36,7 @@
       app:remain_height="15dp"
       app:threshold_height="10dp"
       >
-
-    <include layout="@layout/view_horizontal_scroll"/>
-
-    <!--<LinearLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -59,41 +55,26 @@
           android:layout_gravity="center_horizontal"
           android:src="@drawable/ic_arrow_down"
           />
-    </LinearLayout>-->
+    </LinearLayout>
   </com.ouyangzn.view.TopDragLayout>
-
-  <RelativeLayout
-      android:id="@+id/layout"
-      android:layout_width="wrap_content"
+  <com.ouyangzn.view.TopDragLayout
+      android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:background="#8888"
+      android:layout_marginBottom="5dp"
+      android:layout_marginTop="5dp"
+      android:background="#0f0"
+      app:remain_height="30dp"
+      app:threshold_height="10dp"
       >
-
-<!--
-    <com.ouyangzn.view.CornerMarkText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="20dp"
-        android:layout_alignParentRight="true"
-        android:padding="5dp"
-        android:background="#8888"
-        android:text="java"
-        android:textColor="#ff0000"
-        android:textSize="10sp"
-        />
--->
-    <com.ouyangzn.view.CornerMarkText
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_margin="20dp"
-        android:background="#8000ff00"
-        app:bg_color="#800000ff"
-        app:text="java"
-        app:text_color="#ffffff"
-        app:text_size="10sp"
-        />
-
-  </RelativeLayout>
-
+    <include layout="@layout/view_vertical_scroll"/>
+  </com.ouyangzn.view.TopDragLayout>
+  <com.ouyangzn.view.TopDragLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:background="#0f0"
+      app:remain_height="15dp"
+      app:threshold_height="10dp"
+      >
+    <include layout="@layout/view_horizontal_scroll"/>
+  </com.ouyangzn.view.TopDragLayout>
 </LinearLayout>
