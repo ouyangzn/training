@@ -24,11 +24,10 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.PorterDuff;
 import android.graphics.PorterDuffXfermode;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import com.ouyangzn.R;
+import com.ouyangzn.utils.Log;
 
 /**
  * Created by ouyangzn on 2016/10/12.<br/>
@@ -36,13 +35,15 @@ import com.ouyangzn.R;
  */
 public class LoadingView5 extends View {
 
-  //private static final int MIN_WIDTH = 130;
-  //private static final int MIN_HEIGHT = 130;
+  private static final String TAG = LoadingView5.class.getSimpleName();
 
   private Paint mPaint;
 
   private Bitmap mBgBitmap;
   private Bitmap mLightingBitmap;
+  // 此控件的宽高
+  private int mWidth, mHeight;
+
   private int mRotateDegree = 0;
 
   public LoadingView5(Context context) {
@@ -55,12 +56,6 @@ public class LoadingView5 extends View {
 
   public LoadingView5(Context context, AttributeSet attrs, int defStyleAttr) {
     super(context, attrs, defStyleAttr);
-    init();
-  }
-
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-  public LoadingView5(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-    super(context, attrs, defStyleAttr, defStyleRes);
     init();
   }
 
@@ -81,46 +76,15 @@ public class LoadingView5 extends View {
   @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
     int width = measureWidth(widthMeasureSpec);
     int height = measureHeight(heightMeasureSpec);
-    int size = Math.max(width, height);
-    setMeasuredDimension(size, size);
+    //int size = Math.max(width, height);
+    //setMeasuredDimension(size, size);
+    setMeasuredDimension(width, height);
   }
 
   @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
     super.onSizeChanged(w, h, oldw, oldh);
-  }
-
-  private int measureHeight(int heightMeasureSpec) {
-    int mode = MeasureSpec.getMode(heightMeasureSpec);
-    int size = MeasureSpec.getSize(heightMeasureSpec);
-    //int minHeight = ScreenUtils.dp2px(getContext(), MIN_HEIGHT);
-    int height;
-    if (mode == MeasureSpec.EXACTLY) {
-      height = size;
-    } else {
-      height = mBgBitmap.getHeight() + getPaddingBottom() + getPaddingTop();
-      if (mode == MeasureSpec.AT_MOST) {
-        height = Math.min(height, size);
-      }
-    }
-    //if (height < minHeight) height = minHeight;
-    return height;
-  }
-
-  private int measureWidth(int widthMeasureSpec) {
-    int mode = MeasureSpec.getMode(widthMeasureSpec);
-    int size = MeasureSpec.getSize(widthMeasureSpec);
-    //int minWidth = ScreenUtils.dp2px(getContext(), MIN_WIDTH);
-    int width;
-    if (mode == MeasureSpec.EXACTLY) {
-      width = size;
-    } else {
-      width = mBgBitmap.getWidth() + getPaddingRight() + getPaddingLeft();
-      if (mode == MeasureSpec.AT_MOST) {
-        width = Math.min(size, width);
-      }
-    }
-    //if (width < minWidth) width = minWidth;
-    return width;
+    this.mWidth = w;
+    this.mHeight = h;
   }
 
   @Override protected void onDraw(Canvas canvas) {
@@ -128,25 +92,27 @@ public class LoadingView5 extends View {
   }
 
   private void drawCircle(Canvas canvas) {
-    float x = (getWidth() - mLightingBitmap.getWidth()) / 2;
-    float y = (getHeight() - mLightingBitmap.getHeight()) / 2;
+    float x = (mWidth - mLightingBitmap.getWidth()) / 2;
+    float y = (mHeight - mLightingBitmap.getHeight()) / 2;
+    // 闪电
     canvas.drawBitmap(mLightingBitmap, x, y, mPaint);
-    // 存为新图层
-    int saveLayerCount =
-        canvas.saveLayer(0, 0, getWidth(), getHeight(), mPaint, Canvas.ALL_SAVE_FLAG);
-    x = (getWidth() - mBgBitmap.getWidth()) / 2;
-    y = (getHeight() - mBgBitmap.getHeight()) / 2;
-    resetPaint();
-    canvas.drawBitmap(mBgBitmap, x, y, mPaint);
-    float cx = mBgBitmap.getWidth() / 4 - (mBgBitmap.getHeight() - mBgBitmap.getWidth()) / 2;
-    float cy = mBgBitmap.getHeight() / 2;
+    // 存为新图层--在此图层使用setXfermode其中一种策略画背景"圆"及不停移动的圆
+    int saveLayerCount = canvas.saveLayer(0, 0, mWidth, mHeight, mPaint, Canvas.ALL_SAVE_FLAG);
+    x = (mWidth - mBgBitmap.getWidth()) / 2;
+    y = (mHeight - mBgBitmap.getHeight()) / 2;
+    // 白色背景"圆"
+    canvas.drawBitmap(mBgBitmap, x, y, null);
+    // 准备画红色实心圆与白色背景"圆"混合
+    //float cx = getWidth() / 4 - (mBgBitmap.getHeight() - mBgBitmap.getWidth()) / 2;
+    // 红圆中心点为背景图的左侧中间位置
+    float cx = mWidth / 2 - (mBgBitmap.getWidth() / 2);
+    float cy = mHeight / 2;
     resetPaint();
     mPaint.setColor(Color.RED);
     mPaint.setStyle(Paint.Style.FILL);
     //保留相交部分及底层图片
     mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
-    canvas.save();
-    canvas.rotate(mRotateDegree * 10, mBgBitmap.getWidth() / 2, mBgBitmap.getHeight() / 2);
+    canvas.rotate(mRotateDegree * 10, mWidth / 2, mHeight / 2);
     float radius = Math.max(mBgBitmap.getWidth(), mBgBitmap.getHeight()) / 3;
     canvas.drawCircle(cx, cy, radius, mPaint);
     // 恢复保存的图层；
@@ -169,5 +135,45 @@ public class LoadingView5 extends View {
     mPaint.setAntiAlias(true);
     mPaint.setDither(true);
     mPaint.setStyle(Paint.Style.STROKE);
+  }
+
+  private int measureHeight(int heightMeasureSpec) {
+    int mode = MeasureSpec.getMode(heightMeasureSpec);
+    int size = MeasureSpec.getSize(heightMeasureSpec);
+    int height;
+    if (mode == MeasureSpec.EXACTLY) {
+      height = size;
+    } else {
+      height = mBgBitmap.getHeight() + getPaddingBottom() + getPaddingTop();
+      if (mode == MeasureSpec.AT_MOST) {
+        height = Math.min(height, size);
+      }
+    }
+    int minSize = mBgBitmap.getHeight() + getPaddingBottom() + getPaddingTop();
+    if (height < minSize) {
+      height = minSize;
+      Log.w(TAG, "height must greater than image(ic_loading_bg_circle)'s height.");
+    }
+    return height;
+  }
+
+  private int measureWidth(int widthMeasureSpec) {
+    int mode = MeasureSpec.getMode(widthMeasureSpec);
+    int size = MeasureSpec.getSize(widthMeasureSpec);
+    int width;
+    if (mode == MeasureSpec.EXACTLY) {
+      width = size;
+    } else {
+      width = mBgBitmap.getWidth() + getPaddingRight() + getPaddingLeft();
+      if (mode == MeasureSpec.AT_MOST) {
+        width = Math.min(size, width);
+      }
+    }
+    int minSize = mBgBitmap.getWidth() + getPaddingRight() + getPaddingLeft();
+    if (width < minSize) {
+      width = minSize;
+      Log.w(TAG, "width must greater than image(ic_loading_bg_circle)'s width.");
+    }
+    return width;
   }
 }

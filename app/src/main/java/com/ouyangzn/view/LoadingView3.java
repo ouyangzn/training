@@ -23,8 +23,6 @@ import android.graphics.LinearGradient;
 import android.graphics.Paint;
 import android.graphics.RectF;
 import android.graphics.Shader;
-import android.os.Build;
-import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 import android.view.View;
 import com.ouyangzn.lib.utils.ScreenUtils;
@@ -55,12 +53,6 @@ public class LoadingView3 extends View {
     init();
   }
 
-  @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-  public LoadingView3(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-    super(context, attrs, defStyleAttr, defStyleRes);
-    init();
-  }
-
   private void init() {
     mBgPaint = new Paint();
     mBgPaint.setColor(Color.WHITE);
@@ -70,7 +62,7 @@ public class LoadingView3 extends View {
     mBgPaint.setStrokeWidth(ScreenUtils.dp2px(getContext(), 4));
 
     mProgressPaint = new Paint();
-    //mProgressPaint.setColor(Color.RED);
+    mProgressPaint.setColor(Color.RED);
     mProgressPaint.setAntiAlias(true);
     mProgressPaint.setDither(true);
     mProgressPaint.setStyle(Paint.Style.STROKE);
@@ -101,34 +93,16 @@ public class LoadingView3 extends View {
 
   @Override protected void onDraw(Canvas canvas) {
     drawCircle(canvas);
-    drawMovingCircle(canvas);
-  }
-
-  private void drawMovingCircle(Canvas canvas) {
-
   }
 
   private void drawCircle(Canvas canvas) {
-    Context context = getContext();
     int paddingTop = getPaddingTop();
     int paddingBottom = getPaddingBottom();
     int paddingLeft = getPaddingLeft();
     int paddingRight = getPaddingRight();
-    int startX = getWidth() / 2;
-    int startY = getHeight() - paddingBottom;
-    int stopX = paddingLeft + ScreenUtils.dp2px(context, 10);
-    int stopY = getHeight() - paddingBottom - ScreenUtils.dp2px(context, 25);
-    // 左边斜线
-    canvas.drawLine(startX, startY, stopX, stopY, mBgPaint);
-    // 右边斜线
-    startX = getWidth() / 2 + ScreenUtils.dp2px(context, 5);
-    startY = getHeight() - paddingBottom - ScreenUtils.dp2px(context, 5);
-    stopX = getWidth() - paddingRight - ScreenUtils.dp2px(context, 10);
-    stopY = getHeight() - paddingBottom - ScreenUtils.dp2px(context, 25);
-    canvas.drawLine(startX, startY, stopX, stopY, mBgPaint);
     // 圆弧
-    RectF oval = new RectF(paddingLeft, paddingTop, getWidth() - paddingRight, stopY);
-    oval.set(paddingLeft, paddingTop, getWidth() - paddingRight, getHeight() - paddingBottom);
+    RectF oval =
+        new RectF(paddingLeft, paddingTop, getWidth() - paddingRight, getHeight() - paddingBottom);
     // drawArc时画笔会顺时针旋转来绘画
     // oval：定义可以画线的上下左右位置
     // startAngle：起始角度，x坐标轴的右边为0°
@@ -146,10 +120,10 @@ public class LoadingView3 extends View {
     //canvas.drawArc(oval, 0, 360, false, mBgPaint);
     // 画圆的上半部分，圆形进度条50%的进度所需画的角度 = 50 / 100 * 360°
     // 不能与其他的公用paint，会导致其他已绘制图形出现问题
-    canvas.save();
+    //canvas.save();
     canvas.rotate(mRotateDegree * 10, getWidth() / 2, getHeight() / 2);
     canvas.drawArc(oval, 180, 180, false, mProgressPaint);
-    canvas.restore();
+    //canvas.restore();
     postDelayed(new Runnable() {
       @Override public void run() {
         if (mRotateDegree > 360) mRotateDegree = 0;
