@@ -17,21 +17,44 @@
 package com.ouyangzn.module.testViewDrag;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import butterknife.BindView;
 import com.ouyangzn.R;
 import com.ouyangzn.base.BaseActivity;
+import com.ouyangzn.base.DividerItemDecoration;
+import com.ouyangzn.recyclerview.BaseRecyclerViewAdapter;
+import java.util.ArrayList;
 
 public class ViewDragActivity extends BaseActivity {
+
+  @BindView(R.id.list_vertical) RecyclerView mRecyclerVertical;
+  @BindView(R.id.list_horizontal) RecyclerView mRecyclerHorizontal;
+  private BaseRecyclerViewAdapter<String> mAdapter;
+  private BaseRecyclerViewAdapter<String> mAdapterHorizontal;
 
   @Override protected int getContentResId() {
     return R.layout.activity_view_drag;
   }
 
   @Override protected void initData() {
-
+    ArrayList<String> list = new ArrayList<>();
+    for (int i = 1; i < 11; i++) {
+      list.add("测试数据" + i);
+    }
+    mAdapter = new RecyclerViewAdapter(list);
+    mAdapterHorizontal = new RecyclerViewAdapter(list);
   }
 
   @Override protected void initView(Bundle savedInstanceState) {
+    mRecyclerVertical.setLayoutManager(new LinearLayoutManager(mContext));
+    mRecyclerVertical.addItemDecoration(new DividerItemDecoration(mContext));
+    mRecyclerVertical.setAdapter(mAdapter);
 
+    mRecyclerHorizontal.setLayoutManager(
+        new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false));
+    mRecyclerHorizontal.addItemDecoration(new DividerItemDecoration(mContext));
+    mRecyclerHorizontal.setAdapter(mAdapterHorizontal);
   }
 
 

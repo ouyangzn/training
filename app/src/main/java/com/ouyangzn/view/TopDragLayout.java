@@ -16,18 +16,19 @@
 
 package com.ouyangzn.view;
 
-import android.annotation.TargetApi;
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
-import android.os.Build;
 import android.support.v4.view.MotionEventCompat;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.widget.ViewDragHelper;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
+import android.widget.HorizontalScrollView;
+import android.widget.ScrollView;
 import com.ouyangzn.R;
 import com.ouyangzn.utils.Log;
 
@@ -44,6 +45,9 @@ public class TopDragLayout extends FrameLayout {
   private int mRemainHeight;
   /** 拖动隐藏显示的临界值高度 */
   private int mThresholdHeight;
+  /** 要被拖动的子view */
+  private int mDraggedViewId;
+  private View mDraggedView;
   private float downY;
 
   public TopDragLayout(Context context) {
@@ -59,69 +63,42 @@ public class TopDragLayout extends FrameLayout {
     init(context, attrs);
   }
 
-  @TargetApi(Build.VERSION_CODES.LOLLIPOP)
-  public TopDragLayout(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-    super(context, attrs, defStyleAttr, defStyleRes);
-    init(context, attrs);
-  }
-
   private void init(Context context, AttributeSet attrs) {
     mDragHelper = ViewDragHelper.create(this, new ViewDragCallback());
     TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.TopDragLayout);
     mRemainHeight = ta.getDimensionPixelOffset(R.styleable.TopDragLayout_remain_height, 0);
     mThresholdHeight = ta.getDimensionPixelOffset(R.styleable.TopDragLayout_threshold_height, 0);
+    mDraggedViewId = ta.getResourceId(R.styleable.TopDragLayout_dragged_view_id, View.NO_ID);
     ta.recycle();
-  }
-
-  @Override protected void onDraw(Canvas canvas) {
-    super.onDraw(canvas);
-    Log.d(TAG, "---------onDraw---------");
-  }
-
-  @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-    super.onMeasure(widthMeasureSpec, heightMeasureSpec);
-    Log.d(TAG, "---------onMeasure---------");
-  }
-
-  @Override protected void onLayout(boolean changed, int left, int top, int right, int bottom) {
-    super.onLayout(changed, left, top, right, bottom);
-    Log.d(TAG, "---------onLayout---------");
-    // 高度改为包裹
-    //ViewGroup.LayoutParams params = getLayoutParams();
-    //if (params.height != ViewGroup.LayoutParams.WRAP_CONTENT) {
-    //  params.height = ViewGroup.LayoutParams.WRAP_CONTENT;
-    //  setLayoutParams(params);
-    //}
   }
 
   @Override protected void onFinishInflate() {
     super.onFinishInflate();
-    Log.d(TAG, "---------onFinishInflate---------");
-    // 只能有一个子view
-    if (getChildCount() != 1) {
-      throw new UnsupportedOperationException("more than 1 child is not allowed");
+    if (mDraggedViewId != View.NO_ID) {
+      mDraggedView = findViewById(mDraggedViewId);
+    } else {
+      mDraggedView = getChildAt(0);
     }
   }
 
   @Override public boolean onInterceptTouchEvent(MotionEvent ev) {
     boolean helpResult = mDragHelper.shouldInterceptTouchEvent(ev);
-    View child = getChildAt(0);
-    if (isScrollHorizontal(child)) {
+    if (isHorizontalScrollView(mDraggedView)) {
       boolean intercept = false;
       switch (MotionEventCompat.getActionMasked(ev)) {
         case MotionEvent.ACTION_MOVE:
           // 判断是否该拦截此事件自己消费--->模仿support-v4中的DrawerLayout处理方式
           intercept = mDragHelper.checkTouchSlop(ViewDragHelper.DIRECTION_VERTICAL);
           // 此时如果需要拦截事件，需要手动捕获拖动的view
-          if (intercept) mDragHelper.captureChildView(child, ev.getPointerId(0));
+          if (intercept) mDragHelper.captureChildView(mDraggedView, ev.getPointerId(0));
           break;
       }
       return helpResult || intercept;
     }
-    if (isScrollVertical(child)) {
+    if (isVerticalScrollView(mDraggedView)) {
       // 如果子View被隐藏了，执行拖动出来
-      if (child.getBottom() == mRemainHeight) {
-        mDragHelper.captureChildView(child, ev.getPointerId(0));
+      if (mDraggedView.getBottom() == mRemainHeight) {
+        mDragHelper.captureChildView(mDraggedView, ev.getPointerId(0));
         return true;
       }
       boolean intercept = false;
@@ -132,42 +109,55 @@ public class TopDragLayout extends FrameLayout {
         case MotionEvent.ACTION_MOVE:
           // 手指往下滑动
           if (ev.getY() - downY > 0) {
-            intercept = !ViewCompat.canScrollVertically(child, -1);
+            intercept = !ViewCompat.canScrollVertically(mDraggedView, -1);
             Log.d(TAG, "----------手指下滑，intercept = " + intercept);
           } else {
-            intercept = !ViewCompat.canScrollVertically(child, 1);
+            intercept = !ViewCompat.canScrollVertically(mDraggedView, 1);
             Log.d(TAG, "----------手指上滑，intercept = " + intercept);
           }
           break;
       }
       Log.d(TAG, "----------return = " + (helpResult || intercept));
       // 此时如果需要拦截事件，需要手动捕获拖动的view
-      if (intercept) mDragHelper.captureChildView(child, ev.getPointerId(0));
+      if (intercept) mDragHelper.captureChildView(mDraggedView, ev.getPointerId(0));
       return helpResult || intercept;
     }
-    return helpResult/* || !canChildScrollDown()*/;
+    return helpResult;
   }
 
-  private boolean isScrollHorizontal(View view) {
-    //if (view instanceof RecyclerView) {
-    //  RecyclerView recyclerView = (RecyclerView) view;
-    //  RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
-    //  if (layoutManager instanceof LinearLayoutManager) {
-    //    LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
-    //    if (manager.getLayoutDirection() == LinearLayoutManager.HORIZONTAL) {
-    //      return true;
-    //    }
-    //  }
-    //}
-    return ViewCompat.canScrollHorizontally(view, -1) || ViewCompat.canScrollHorizontally(view, 1);
+  private boolean isHorizontalScrollView(View view) {
+    if (view instanceof RecyclerView) {
+      RecyclerView recyclerView = (RecyclerView) view;
+      RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+      if (layoutManager instanceof LinearLayoutManager) {
+        LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
+        if (manager.getOrientation() == LinearLayoutManager.HORIZONTAL) {
+          return true;
+        }
+      }
+    }
+    return view instanceof HorizontalScrollView
+        || ViewCompat.canScrollHorizontally(view, -1)
+        || ViewCompat.canScrollHorizontally(view, 1);
   }
 
-  private boolean isScrollVertical(View view) {
-    return ViewCompat.canScrollVertically(view, -1) || ViewCompat.canScrollVertically(view, 1);
+  private boolean isVerticalScrollView(View view) {
+    if (view instanceof RecyclerView) {
+      RecyclerView recyclerView = (RecyclerView) view;
+      RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+      if (layoutManager instanceof LinearLayoutManager) {
+        LinearLayoutManager manager = (LinearLayoutManager) layoutManager;
+        if (manager.getOrientation() == LinearLayoutManager.VERTICAL) {
+          return true;
+        }
+      }
+    }
+    return view instanceof ScrollView
+        || ViewCompat.canScrollVertically(view, -1)
+        || ViewCompat.canScrollVertically(view, 1);
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
-    Log.d(TAG, "---------onTouchEvent---------");
     mDragHelper.processTouchEvent(event);
     return true;
   }
@@ -180,7 +170,8 @@ public class TopDragLayout extends FrameLayout {
 
   class ViewDragCallback extends ViewDragHelper.Callback {
 
-    private boolean mSwitchVisible;
+    /** 拖动是否有效的开关，null表示保持原样不变 */
+    private Boolean mIsDragValid;
     private int mDragViewLeft;
     private int mDragViewTop;
     private int mDragViewBottom;
@@ -188,23 +179,26 @@ public class TopDragLayout extends FrameLayout {
     @Override public boolean tryCaptureView(View child, int pointerId) {
       Log.d(TAG, "-----------tryCaptureView----------------");
       Log.d(TAG, "----------pointerId = " + pointerId + " ,child = " + child);
-      return true;
+      return child == mDraggedView;
     }
 
     @Override
     public void onViewPositionChanged(View changedView, int left, int top, int dx, int dy) {
+      if (changedView != mDraggedView) {
+        mIsDragValid = null;
+        return;
+      }
       Log.d(TAG, "-----------onViewPositionChanged----------------");
       Log.d(TAG, "----------left = " + left
           + " ,top = " + top
           + " ,dx = " + dx
           + " ,dy = " + dy
           + " ,changedView = " + changedView);
-      super.onViewPositionChanged(changedView, left, top, dx, dy);
       // 临界值没设置的，默认一半高为临界值
       if (mThresholdHeight == 0) {
-        mSwitchVisible = (Math.abs(top - mDragViewTop) / (float) changedView.getHeight()) > 0.5;
+        mIsDragValid = (Math.abs(top - mDragViewTop) / (float) changedView.getHeight()) > 0.5;
       } else {
-        mSwitchVisible = Math.abs(top - mDragViewTop) > mThresholdHeight;
+        mIsDragValid = Math.abs(top - mDragViewTop) > mThresholdHeight;
       }
     }
 
@@ -228,10 +222,14 @@ public class TopDragLayout extends FrameLayout {
     }
 
     @Override public void onViewReleased(View releasedChild, float xvel, float yvel) {
+      //if (releasedChild != mDraggedView) return;
+      if (mIsDragValid == null) {
+        return;
+      }
       Log.d(TAG, "-----------onViewReleased----------------");
       Log.d(TAG,
           "----------xvel = " + xvel + " ,yvel = " + yvel + " ,releasedChild = " + releasedChild);
-      if (mSwitchVisible) {
+      if (mIsDragValid) {
         Log.d(TAG, "----------拖动有效---------");
         if (mDragViewTop < 0) {
           // 原来是隐藏的
@@ -270,6 +268,7 @@ public class TopDragLayout extends FrameLayout {
     }
 
     @Override public int clampViewPositionVertical(View child, int top, int dy) {
+      if (child != mDraggedView) return child.getTop();
       Log.d(TAG, "---------clampViewPositionVertical.top = " + top
           + " ,dy = " + dy
           + " ,child = " + child);

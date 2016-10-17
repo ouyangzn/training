@@ -60,21 +60,53 @@
   <com.ouyangzn.view.TopDragLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
-      android:layout_marginBottom="5dp"
       android:layout_marginTop="5dp"
       android:background="#0f0"
+      app:dragged_view_id="@+id/view_dragged"
       app:remain_height="30dp"
       app:threshold_height="10dp"
       >
-    <include layout="@layout/view_vertical_scroll"/>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#aa0000ff"
+        android:gravity="center"
+        android:text="hello world, TopDragLayout下有2个子view时，自由指定哪个被拖动"
+        android:textColor="#ff0000"
+        />
+    <include
+        layout="@layout/view_vertical_scroll"
+        android:id="@+id/view_dragged"
+        />
   </com.ouyangzn.view.TopDragLayout>
   <com.ouyangzn.view.TopDragLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
       android:background="#0f0"
       app:remain_height="15dp"
       app:threshold_height="10dp"
       >
     <include layout="@layout/view_horizontal_scroll"/>
+  </com.ouyangzn.view.TopDragLayout>
+  <com.ouyangzn.view.TopDragLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:background="#0f0"
+      app:remain_height="15dp"
+      app:threshold_height="10dp"
+      >
+    <include layout="@layout/view_test_drag_recycle_horizontal"/>
+  </com.ouyangzn.view.TopDragLayout>
+  <com.ouyangzn.view.TopDragLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="5dp"
+      android:background="#0f0"
+      app:remain_height="15dp"
+      app:threshold_height="10dp"
+      >
+    <include layout="@layout/view_test_drag_recycle_vertical"/>
   </com.ouyangzn.view.TopDragLayout>
 </LinearLayout>

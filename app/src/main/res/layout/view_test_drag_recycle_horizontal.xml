@@ -14,14 +14,9 @@
   ~ limitations under the License.
   ~
   -->
-
-<resources>
-  <declare-styleable name="TopDragLayout">
-    <!-- 拖动view隐藏时底部留的高度 -->
-    <attr format="dimension" name="remain_height"/>
-    <!-- 拖动隐藏/显示的临界值高度 -->
-    <attr format="dimension" name="threshold_height"/>
-    <!-- 被拖动隐藏/显示的子view -->
-    <attr format="integer" name="dragged_view_id"/>
-  </declare-styleable>
-</resources>
+<android.support.v7.widget.RecyclerView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/list_horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    />

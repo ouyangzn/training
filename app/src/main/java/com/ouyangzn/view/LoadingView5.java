@@ -41,6 +41,7 @@ public class LoadingView5 extends View {
 
   private Bitmap mBgBitmap;
   private Bitmap mLightingBitmap;
+  private PorterDuffXfermode mXfermode;
   // 此控件的宽高
   private int mWidth, mHeight;
 
@@ -61,8 +62,9 @@ public class LoadingView5 extends View {
 
   private void init() {
     mPaint = new Paint();
-    mPaint.setColor(Color.WHITE);
+    mPaint.setColor(Color.RED);
     mPaint.setAntiAlias(true);
+    mPaint.setDither(true);
     mPaint.setStyle(Paint.Style.STROKE);
 
     BitmapFactory.Options options = new BitmapFactory.Options();
@@ -71,6 +73,8 @@ public class LoadingView5 extends View {
         BitmapFactory.decodeResource(getResources(), R.drawable.ic_loading_bg_circle, options);
     mLightingBitmap =
         BitmapFactory.decodeResource(getResources(), R.drawable.ic_lightning, options);
+
+    mXfermode = new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP);
   }
 
   @Override protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
@@ -95,7 +99,7 @@ public class LoadingView5 extends View {
     float x = (mWidth - mLightingBitmap.getWidth()) / 2;
     float y = (mHeight - mLightingBitmap.getHeight()) / 2;
     // 闪电
-    canvas.drawBitmap(mLightingBitmap, x, y, mPaint);
+    canvas.drawBitmap(mLightingBitmap, x, y, null);
     // 存为新图层--在此图层使用setXfermode其中一种策略画背景"圆"及不停移动的圆
     int saveLayerCount = canvas.saveLayer(0, 0, mWidth, mHeight, mPaint, Canvas.ALL_SAVE_FLAG);
     x = (mWidth - mBgBitmap.getWidth()) / 2;
@@ -107,11 +111,11 @@ public class LoadingView5 extends View {
     // 红圆中心点为背景图的左侧中间位置
     float cx = mWidth / 2 - (mBgBitmap.getWidth() / 2);
     float cy = mHeight / 2;
-    resetPaint();
+    //resetPaint();
     mPaint.setColor(Color.RED);
     mPaint.setStyle(Paint.Style.FILL);
     //保留相交部分及底层图片
-    mPaint.setXfermode(new PorterDuffXfermode(PorterDuff.Mode.SRC_ATOP));
+    mPaint.setXfermode(mXfermode);
     canvas.rotate(mRotateDegree * 10, mWidth / 2, mHeight / 2);
     float radius = Math.max(mBgBitmap.getWidth(), mBgBitmap.getHeight()) / 3;
     canvas.drawCircle(cx, cy, radius, mPaint);
@@ -127,14 +131,6 @@ public class LoadingView5 extends View {
         invalidate();
       }
     }, delay);
-  }
-
-  private void resetPaint() {
-    mPaint.reset();
-    mPaint.setColor(Color.WHITE);
-    mPaint.setAntiAlias(true);
-    mPaint.setDither(true);
-    mPaint.setStyle(Paint.Style.STROKE);
   }
 
   private int measureHeight(int heightMeasureSpec) {
