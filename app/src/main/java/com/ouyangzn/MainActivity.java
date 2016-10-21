@@ -26,7 +26,8 @@ import com.ouyangzn.module.testLoadingView.LoadingActivity;
 import com.ouyangzn.module.testRealm.RealmActivity;
 import com.ouyangzn.module.testRecyclerView.RecyclerViewActivity;
 import com.ouyangzn.module.testRxJava.RxJavaActivity;
-import com.ouyangzn.module.testViewDrag.ViewDragActivity;
+import com.ouyangzn.module.testViewDrag.DragActivity;
+import com.ouyangzn.module.testViewDrag.TopDragActivity;
 import com.ouyangzn.module.testViewTouchDispatcher.DispatcherActivity;
 import com.ouyangzn.module.testWebView.WebActivity;
 import com.ouyangzn.utils.Log;
@@ -72,7 +73,11 @@ public class MainActivity extends BaseActivity {
   }
 
   public void testTopDragLayout(View view) {
-    openActivity(ViewDragActivity.class);
+    openActivity(TopDragActivity.class);
+  }
+
+  public void testDragLayout(View view) {
+    openActivity(DragActivity.class);
   }
 
   public void testCornerMarkText(View view) {

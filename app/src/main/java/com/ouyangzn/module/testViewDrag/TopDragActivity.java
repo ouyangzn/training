@@ -26,7 +26,7 @@ import com.ouyangzn.base.DividerItemDecoration;
 import com.ouyangzn.recyclerview.BaseRecyclerViewAdapter;
 import java.util.ArrayList;
 
-public class ViewDragActivity extends BaseActivity {
+public class TopDragActivity extends BaseActivity {
 
   @BindView(R.id.list_vertical) RecyclerView mRecyclerVertical;
   @BindView(R.id.list_horizontal) RecyclerView mRecyclerHorizontal;
@@ -34,7 +34,7 @@ public class ViewDragActivity extends BaseActivity {
   private BaseRecyclerViewAdapter<String> mAdapterHorizontal;
 
   @Override protected int getContentResId() {
-    return R.layout.activity_view_drag;
+    return R.layout.activity_top_drag;
   }
 
   @Override protected void initData() {

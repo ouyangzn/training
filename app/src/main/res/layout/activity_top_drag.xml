@@ -29,12 +29,12 @@
       android:padding="15dp"
       android:text="固定的view"
       />
-  <com.ouyangzn.view.DragLayout
+  <com.ouyangzn.view.TopDragLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:background="#0f0"
-      app:remain_distance="15dp"
-      app:threshold_distance="10dp"
+      app:remain_height="15dp"
+      app:threshold_height="10dp"
       >
     <LinearLayout
         android:layout_width="match_parent"
@@ -56,60 +56,57 @@
           android:src="@drawable/ic_arrow_down"
           />
     </LinearLayout>
-  </com.ouyangzn.view.DragLayout>
-  <com.ouyangzn.view.DragLayout
+  </com.ouyangzn.view.TopDragLayout>
+  <com.ouyangzn.view.TopDragLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
       android:background="#0f0"
-      app:direction="left"
       app:dragged_view_id="@+id/view_dragged"
-      app:remain_distance="30dp"
-      app:threshold_distance="10dp"
+      app:remain_height="30dp"
+      app:threshold_height="10dp"
       >
-    <!--<TextView
+    <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#aa0000ff"
         android:gravity="center"
-        android:text="hello world, DragLayout下有2个子view时，自由指定哪个被拖动"
+        android:text="hello world, TopDragLayout下有2个子view时，自由指定哪个被拖动"
         android:textColor="#ff0000"
-        />-->
+        />
     <include
         layout="@layout/view_vertical_scroll"
         android:id="@+id/view_dragged"
         />
-  </com.ouyangzn.view.DragLayout>
-  <com.ouyangzn.view.DragLayout
+  </com.ouyangzn.view.TopDragLayout>
+  <com.ouyangzn.view.TopDragLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
       android:background="#0f0"
-      app:direction="bottom"
-      app:remain_distance="15dp"
-      app:threshold_distance="10dp"
+      app:remain_height="15dp"
+      app:threshold_height="10dp"
       >
     <include layout="@layout/view_horizontal_scroll"/>
-  </com.ouyangzn.view.DragLayout>
-  <com.ouyangzn.view.DragLayout
+  </com.ouyangzn.view.TopDragLayout>
+  <com.ouyangzn.view.TopDragLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
       android:background="#0f0"
-      app:direction="right"
-      app:remain_distance="15dp"
-      app:threshold_distance="10dp"
+      app:remain_height="15dp"
+      app:threshold_height="10dp"
       >
     <include layout="@layout/view_test_drag_recycle_horizontal"/>
-  </com.ouyangzn.view.DragLayout>
-  <com.ouyangzn.view.DragLayout
+  </com.ouyangzn.view.TopDragLayout>
+  <com.ouyangzn.view.TopDragLayout
       android:layout_width="match_parent"
       android:layout_height="wrap_content"
       android:layout_marginTop="5dp"
       android:background="#0f0"
-      app:remain_distance="15dp"
-      app:threshold_distance="10dp"
+      app:remain_height="15dp"
+      app:threshold_height="10dp"
       >
     <include layout="@layout/view_test_drag_recycle_vertical"/>
-  </com.ouyangzn.view.DragLayout>
+  </com.ouyangzn.view.TopDragLayout>
 </LinearLayout>

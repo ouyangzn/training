@@ -20,6 +20,8 @@
     <attr format="dimension" name="remain_distance"/>
     <!-- 拖动隐藏/显示时拖动距离的临界值 -->
     <attr format="dimension" name="threshold_distance"/>
+    <!-- 被拖动隐藏/显示的子view -->
+    <attr format="integer" name="dragged_view"/>
     <!-- 往哪个方向拖动时隐藏 -->
     <attr format="enum" name="direction">
       <enum name="top" value="0"/>

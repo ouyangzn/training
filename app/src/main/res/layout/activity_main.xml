@@ -91,6 +91,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
+        android:onClick="testDragLayout"
+        android:text="测试DragLayout"
+        android:textAllCaps="false"
+        />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
         android:onClick="testCornerMarkText"
         android:text="测试角标文字"
         android:textAllCaps="false"

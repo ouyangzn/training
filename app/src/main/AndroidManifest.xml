@@ -21,28 +21,20 @@
         <category android:name="android.intent.category.LAUNCHER"/>
       </intent-filter>
     </activity>
-    <activity android:name=".module.testRxJava.RxJavaActivity">
-    </activity>
-    <activity android:name=".module.testRecyclerView.RecyclerViewActivity">
-    </activity>
-    <activity android:name=".module.testWebView.WebActivity">
-    </activity>
-    <activity android:name=".module.testFlexboxLayout.FlexboxLayoutActivity">
-    </activity>
+    <activity android:name=".module.testRxJava.RxJavaActivity"/>
+    <activity android:name=".module.testRecyclerView.RecyclerViewActivity"/>
+    <activity android:name=".module.testWebView.WebActivity"/>
+    <activity android:name=".module.testFlexboxLayout.FlexboxLayoutActivity"/>
     <activity
         android:name=".module.testCoordinatorLayout.CoordinatorActivity"
         android:label="@string/title_activity_coordinator"
         android:theme="@style/AppTheme.NoActionBar">
     </activity>
-    <activity android:name=".module.testViewTouchDispatcher.DispatcherActivity">
-    </activity>
-    <activity android:name=".module.testViewDrag.ViewDragActivity">
-    </activity>
-    <activity android:name=".module.testCornerMarkText.TestCornerMarkActivity">
-    </activity>
-    <activity android:name=".module.testRealm.RealmActivity">
-    </activity>
-    <activity android:name=".module.testLoadingView.LoadingActivity">
-    </activity>
+    <activity android:name=".module.testViewTouchDispatcher.DispatcherActivity"/>
+    <activity android:name=".module.testViewDrag.TopDragActivity"/>
+    <activity android:name=".module.testViewDrag.DragActivity"/>
+    <activity android:name=".module.testCornerMarkText.TestCornerMarkActivity"/>
+    <activity android:name=".module.testRealm.RealmActivity"/>
+    <activity android:name=".module.testLoadingView.LoadingActivity"/>
   </application>
 </manifest>
