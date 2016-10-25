@@ -30,7 +30,6 @@ import android.widget.FrameLayout;
 import android.widget.HorizontalScrollView;
 import android.widget.ScrollView;
 import com.ouyangzn.R;
-import com.ouyangzn.lib.utils.ScreenUtils;
 import com.ouyangzn.utils.Log;
 
 /**
@@ -45,8 +44,8 @@ public class DragLayout extends FrameLayout {
   public final static int DIRECTION_RIGHT = 3;
   private final static String TAG = DragLayout.class.getSimpleName();
   private Context mContext;
-  private int mScreenWidth;
-  private int mScreenHeight;
+  private int mLayoutWidth;
+  private int mLayoutHeight;
 
   private ViewDragHelper mDragHelper;
   /** 隐藏时剩下显示的高度或宽度 */
@@ -77,8 +76,7 @@ public class DragLayout extends FrameLayout {
 
   private void init(Context context, AttributeSet attrs) {
     mContext = context;
-    mScreenWidth = ScreenUtils.getScreenWidth(context);
-    mScreenHeight = ScreenUtils.getScreenHeight(context);
+
     mDragHelper = ViewDragHelper.create(this, new DragLayout.ViewDragCallback());
     TypedArray ta = context.obtainStyledAttributes(attrs, R.styleable.DragLayout);
     mRemainDistance = ta.getDimensionPixelOffset(R.styleable.DragLayout_remain_distance, 0);
@@ -99,6 +97,12 @@ public class DragLayout extends FrameLayout {
       throw new UnsupportedOperationException("DragLayout should has only one direct child");
     }
     mDraggedView = getChildAt(0);
+  }
+
+  @Override protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+    super.onSizeChanged(w, h, oldw, oldh);
+    mLayoutWidth = w;
+    mLayoutHeight = h;
   }
 
   @Override public boolean onInterceptTouchEvent(MotionEvent ev) {
@@ -132,7 +136,7 @@ public class DragLayout extends FrameLayout {
             else {
               // view为右滑隐藏且已隐藏,直接拖动
               if (mDirection == DIRECTION_RIGHT
-                  && (mScreenWidth - mDraggedView.getLeft()) == mRemainDistance) {
+                  && (mLayoutWidth - mDraggedView.getLeft()) == mRemainDistance) {
                 intercept = true;
               } else if (mDirection == DIRECTION_LEFE) {
                 // view为左滑隐藏的，根据view自身能否滑动决定是否拦截
@@ -167,7 +171,7 @@ public class DragLayout extends FrameLayout {
             else {
               // view为下滑隐藏的，且已被隐藏，直接拖动
               if (mDirection == DIRECTION_BOTTOM
-                  && (mScreenHeight - mDraggedView.getBottom()) == mRemainDistance) {
+                  && (mLayoutHeight - mDraggedView.getBottom()) == mRemainDistance) {
                 intercept = true;
               } else if (mDirection == DIRECTION_TOP) {
                 // view为上滑隐藏的，根据view自身能否滑动决定是否拦截
@@ -236,8 +240,8 @@ public class DragLayout extends FrameLayout {
     private int mDragViewRight;
     private int mDragViewTop;
     private int mDragViewBottom;
-    private int mDragLayoutWidth;
-    private int mDragLayoutHeight;
+    //private int mDragLayoutWidth;
+    //private int mDragLayoutHeight;
 
     @Override public boolean tryCaptureView(View child, int pointerId) {
       Log.d(TAG, "-----------tryCaptureView.pointerId = " + pointerId + " ,child = " + child);
@@ -275,8 +279,7 @@ public class DragLayout extends FrameLayout {
       mDragViewTop = capturedChild.getTop();
       mDragViewBottom = capturedChild.getBottom();
       //mDragLayoutWidth = DragLayout.this.getWidth();
-      mDragLayoutWidth = DragLayout.this.getWidth();
-      mDragLayoutHeight = DragLayout.this.getHeight();
+      //mDragLayoutHeight = DragLayout.this.getHeight();
       Log.d(TAG, "-----------onViewCaptured.mDragViewLeft = "
           + mDragViewLeft + " ,mDragViewRight = " + mDragViewRight
           + " ,mDragViewTop = "
@@ -308,7 +311,7 @@ public class DragLayout extends FrameLayout {
                 mRemainDistance - releasedChild.getHeight());
           }
         } else if (mDirection == DIRECTION_BOTTOM) {
-          if (mDragViewBottom > mDragLayoutHeight) {
+          if (mDragViewBottom > mLayoutHeight) {
             mDragHelper.smoothSlideViewTo(releasedChild, mDragViewLeft, 0);
           } else {
             mDragHelper.smoothSlideViewTo(releasedChild, mDragViewLeft,
@@ -322,7 +325,7 @@ public class DragLayout extends FrameLayout {
                 -releasedChild.getWidth() + mRemainDistance, mDragViewTop);
           }
         } else if (mDirection == DIRECTION_RIGHT) {
-          if (mDragViewRight > mDragLayoutWidth) {
+          if (mDragViewRight > mLayoutWidth) {
             mDragHelper.smoothSlideViewTo(releasedChild, 0, mDragViewTop);
           } else {
             mDragHelper.smoothSlideViewTo(releasedChild, releasedChild.getWidth() - mRemainDistance,
@@ -335,13 +338,15 @@ public class DragLayout extends FrameLayout {
         if (mDirection == DIRECTION_TOP) {
           if (mDragViewTop < 0) {
             // 原来是隐藏的
+            // mDragHelper.smoothSlideViewTo(releasedChild, mDragViewLeft, mDragViewTop);
+            // 回滚的过程中再次拖动会导致mDragViewTop变成另外一个数值，从而回滚的位置不对
             mDragHelper.smoothSlideViewTo(releasedChild, mDragViewLeft,
                 mRemainDistance - releasedChild.getHeight());
           } else {
             mDragHelper.smoothSlideViewTo(releasedChild, mDragViewLeft, 0);
           }
         } else if (mDirection == DIRECTION_BOTTOM) {
-          if (mDragViewBottom > mDragLayoutHeight) {
+          if (mDragViewBottom > mLayoutHeight) {
             mDragHelper.smoothSlideViewTo(releasedChild, mDragViewLeft, mDragViewTop);
           } else {
             mDragHelper.smoothSlideViewTo(releasedChild, mDragViewLeft, 0);
@@ -354,7 +359,7 @@ public class DragLayout extends FrameLayout {
             mDragHelper.smoothSlideViewTo(releasedChild, 0, mDragViewTop);
           }
         } else if (mDirection == DIRECTION_RIGHT) {
-          if (mDragViewRight > mDragLayoutWidth) {
+          if (mDragViewRight > mLayoutWidth) {
             mDragHelper.smoothSlideViewTo(releasedChild, releasedChild.getWidth() - mRemainDistance,
                 mDragViewTop);
           } else {
@@ -384,7 +389,7 @@ public class DragLayout extends FrameLayout {
         }
       } else {
         if (left < 0) left = 0;
-        if (mDragViewRight > mScreenWidth + mDraggedView.getWidth()) {
+        if (mDragViewRight > mLayoutWidth + mDraggedView.getWidth()) {
           left = mDragViewLeft;
         }
       }
@@ -411,7 +416,7 @@ public class DragLayout extends FrameLayout {
         if (top < 0) {
           top = 0;
         }
-        if (mDragViewTop >= mScreenHeight) {
+        if (mDragViewTop >= mLayoutHeight) {
           top = mDragViewTop;
         }
       }
