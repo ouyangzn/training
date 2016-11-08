@@ -23,18 +23,18 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import butterknife.ButterKnife;
 import com.ouyangzn.utils.Log;
+import com.trello.navi.component.support.NaviAppCompatActivity;
 
 /**
  * @author Ouyang
  *         Description：Activity基类,包含一些activity的通用操作
  */
-public abstract class BaseActivity extends AppCompatActivity {
+public abstract class BaseActivity extends NaviAppCompatActivity {
 
   public static final int REQUEST_PERMISSION = 1;
   protected String TAG = "BaseActivity";

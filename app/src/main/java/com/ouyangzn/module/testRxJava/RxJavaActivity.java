@@ -33,6 +33,9 @@ import com.ouyangzn.R;
 import com.ouyangzn.base.BaseActivity;
 import com.ouyangzn.lib.utils.ThreadUtil;
 import com.ouyangzn.utils.Log;
+import com.trello.rxlifecycle.LifecycleProvider;
+import com.trello.rxlifecycle.android.ActivityEvent;
+import com.trello.rxlifecycle.navi.NaviLifecycle;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -46,6 +49,9 @@ import rx.functions.Func1;
 import rx.schedulers.Schedulers;
 
 public class RxJavaActivity extends BaseActivity {
+
+  private final LifecycleProvider<ActivityEvent> mProvider =
+      NaviLifecycle.createActivityLifecycleProvider(this);
 
   private List<Subscription> mSubscriptionList = new ArrayList<>();
   private RxJavaTest mRxJavaTest;
@@ -90,10 +96,17 @@ public class RxJavaActivity extends BaseActivity {
               }
             })/*.subscribeOn(Schedulers.newThread())*/;
           }
+        }).doOnUnsubscribe(new Action0() {
+          @Override public void call() {
+            Log.d(TAG, "--------doOnUnsubscribe------");
+          }
         })
+        // 当activity被pause时，取消订阅，subscribe中的Action1不会再执行，而只执行doOnUnsubscribe()
+        .compose(mProvider.<String>bindUntilEvent(ActivityEvent.PAUSE))
         .observeOn(AndroidSchedulers.mainThread())
         .subscribe(new Action1<String>() {
           @Override public void call(String s) {
+            Log.d(TAG, "----------mTvResult.setText(s)-----------");
             mTvResult.setText(s);
           }
         }, new Action1<Throwable>() {
