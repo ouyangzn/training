@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.ouyangzn.lib.utils.ThreadUtil;
 import com.ouyangzn.utils.Log;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import rx.Observable;
 import rx.Subscriber;
@@ -35,7 +36,7 @@ import rx.schedulers.Schedulers;
  */
 public class RxJavaTest extends AndroidTestCase {
 
-  private final String TAG = RxJavaTest.class.getSimpleName();
+  private static final String TAG = RxJavaTest.class.getSimpleName();
   private Context mContext;
 
   private int count = 0;
@@ -45,6 +46,13 @@ public class RxJavaTest extends AndroidTestCase {
 
   public RxJavaTest(Context context) {
     mContext = context.getApplicationContext();
+  }
+
+  public static void main(String[] args) {
+    String str = "a\nb";
+    System.out.println("----------str = " + str);
+    String[] strings = str.split("\n");
+    System.out.println("----------strings = " + Arrays.toString(strings));
   }
 
   public void testFrom() {

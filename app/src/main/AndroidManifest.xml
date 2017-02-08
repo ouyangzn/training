@@ -36,5 +36,9 @@
     <activity android:name=".module.testCornerMarkText.TestCornerMarkActivity"/>
     <activity android:name=".module.testRealm.RealmActivity"/>
     <activity android:name=".module.testLoadingView.LoadingActivity"/>
+    <activity android:name=".module.testRefreshLayout.RefreshLayoutActivity">
+    </activity>
+    <activity android:name=".module.testMQTT.MQTTActivity">
+    </activity>
   </application>
 </manifest>

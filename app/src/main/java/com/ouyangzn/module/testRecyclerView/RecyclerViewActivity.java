@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import butterknife.OnClick;
 import com.ouyangzn.R;
 import com.ouyangzn.base.BaseActivity;
 import com.ouyangzn.recyclerview.BaseRecyclerViewAdapter;
@@ -54,6 +55,11 @@ public class RecyclerViewActivity extends BaseActivity implements
     mRecyclerView = (RecyclerView) findViewById(R.id.list);
     mRecyclerView.setLayoutManager(new LinearLayoutManager(mContext));
     mRecyclerView.setAdapter(mAdapter);
+  }
+
+  @OnClick({ R.id.fab_add }) public void onClick(View view) {
+    mAdapter.addData("新加的数据", 0);
+    mRecyclerView.scrollToPosition(0);
   }
 
   @Override public void onItemClick(View view, int position) {

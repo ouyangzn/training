@@ -3,13 +3,13 @@ apply plugin: 'android-apt'
 apply plugin: 'realm-android'
 
 android {
-  compileSdkVersion 25
-  buildToolsVersion "25"
+  compileSdkVersion rootProject.ext.compileSdkVersion
+  buildToolsVersion rootProject.ext.buildToolsVersion
 
   defaultConfig {
     applicationId "com.ouyangzn.example"
-    minSdkVersion 15
-    targetSdkVersion 24
+    minSdkVersion rootProject.ext.minSdkVersion
+    targetSdkVersion rootProject.ext.targetSdkVersion
     versionCode 1
     versionName "1.0"
   }
@@ -55,4 +55,6 @@ dependencies {
   // butterknife系列
   compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
   apt "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_COMPILER_VERSION}"
+  // MQTT
+  compile 'org.fusesource.mqtt-client:mqtt-client:1.14'
 }

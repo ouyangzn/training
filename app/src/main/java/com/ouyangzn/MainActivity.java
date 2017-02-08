@@ -23,8 +23,10 @@ import com.ouyangzn.module.testCoordinatorLayout.CoordinatorActivity;
 import com.ouyangzn.module.testCornerMarkText.TestCornerMarkActivity;
 import com.ouyangzn.module.testFlexboxLayout.FlexboxLayoutActivity;
 import com.ouyangzn.module.testLoadingView.LoadingActivity;
+import com.ouyangzn.module.testMQTT.MQTTActivity;
 import com.ouyangzn.module.testRealm.RealmActivity;
 import com.ouyangzn.module.testRecyclerView.RecyclerViewActivity;
+import com.ouyangzn.module.testRefreshLayout.RefreshLayoutActivity;
 import com.ouyangzn.module.testRxJava.RxJavaActivity;
 import com.ouyangzn.module.testViewDrag.DragActivity;
 import com.ouyangzn.module.testViewDrag.TopDragActivity;
@@ -90,5 +92,13 @@ public class MainActivity extends BaseActivity {
 
   public void testLoadingView(View view) {
     openActivity(LoadingActivity.class);
+  }
+
+  public void testRefreshLayout(View view) {
+    openActivity(RefreshLayoutActivity.class);
+  }
+
+  public void testMQTT(View view) {
+    openActivity(MQTTActivity.class);
   }
 }

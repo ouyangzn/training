@@ -18,6 +18,7 @@ package com.ouyangzn.module.testRecyclerView;
 import com.ouyangzn.R;
 import com.ouyangzn.recyclerview.BaseRecyclerViewAdapter;
 import com.ouyangzn.recyclerview.BaseViewHolder;
+import com.ouyangzn.utils.Log;
 import java.util.List;
 
 /**
@@ -30,6 +31,8 @@ public class ChildClickRecyclerViewAdapter extends BaseRecyclerViewAdapter<Strin
   }
 
   @Override protected void convert(BaseViewHolder helper, String item) {
+    Log.d("ChildClickRecyclerViewAdapter",
+        "----------convert.position = " + helper.getLayoutPosition());
     helper.setText(R.id.string, item);
     helper.setOnClickListener(R.id.btn_click_me, new OnItemChildClickListener());
   }
