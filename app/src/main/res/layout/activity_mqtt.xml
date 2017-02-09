@@ -12,18 +12,36 @@
       android:id="@+id/btn_connect"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="连接"
+      android:text="连接1"
+      />
+  <Button
+      android:id="@+id/btn_connect_2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="连接2"
       />
   <Button
       android:id="@+id/btn_disconnect"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="断开连接"
+      android:text="断开连接1"
+      />
+  <Button
+      android:id="@+id/btn_disconnect_2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="断开连接2"
       />
   <Button
       android:id="@+id/btn_send_msg"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:text="发消息"
+      android:text="发消息1"
+      />
+  <Button
+      android:id="@+id/btn_send_msg_2"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:text="发消息2"
       />
 </LinearLayout>

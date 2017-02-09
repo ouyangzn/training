@@ -40,6 +40,11 @@ public class MqttClient {
     Log.d(TAG, content);
   }
 
+  private void log(String content, Throwable throwable) {
+    Log.e(TAG, content, throwable);
+  }
+
+
   private MQTT initMqtt() {
     MQTT mqtt = new MQTT();
     try {
@@ -136,7 +141,20 @@ public class MqttClient {
     });
   }
 
+  public void sendMsg(String topic, String msg) {
+    mConnection.publish(topic, msg.getBytes(), QoS.AT_LEAST_ONCE, false, new Callback<Void>() {
+      public void onSuccess(Void v) {
+        log("----------消息发送成功----------");
+      }
+
+      public void onFailure(Throwable value) {
+        log("----------消息发送失败:", value);
+      }
+    });
+  }
+
   public void disconnect() {
+    if (mConnection == null) return;
     // To disconnect..
     mConnection.disconnect(new Callback<Void>() {
       public void onSuccess(Void v) {
@@ -146,6 +164,24 @@ public class MqttClient {
 
       public void onFailure(Throwable value) {
         // Disconnects never fail.
+      }
+    });
+  }
+
+  public void unsubscribeTopic(String... topics) {
+    if (topics == null || mConnection == null) return;
+
+    UTF8Buffer[] topic = new UTF8Buffer[topics.length];
+    for (int i = 0; i < topics.length; i++) {
+      topic[i] = new UTF8Buffer(topics[i]);
+    }
+    mConnection.unsubscribe(topic, new Callback<Void>() {
+      @Override public void onSuccess(Void value) {
+
+      }
+
+      @Override public void onFailure(Throwable value) {
+
       }
     });
   }
