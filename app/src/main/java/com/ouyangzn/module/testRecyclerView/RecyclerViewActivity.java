@@ -39,13 +39,20 @@ public class RecyclerViewActivity extends BaseActivity implements
   }
 
   @Override protected void initData() {
+    //ArrayList<String> list = new ArrayList<>();
+    //for (int i = 1; i < 31; i++) {
+    //  list.add("测试数据" + i);
+    //}
+    //mAdapter = new ChildClickRecyclerViewAdapter(R.layout.item_test_recycler, list);
+    //mAdapter.setOnRecyclerViewItemClickListener(this);
+    //mAdapter.setOnRecyclerViewItemLongClickListener(this);
+    //mAdapter.setOnRecyclerViewItemChildClickListener(this);
+
     ArrayList<String> list = new ArrayList<>();
-    for (int i = 1; i < 31; i++) {
+    for (int i = 1; i < 4; i++) {
       list.add("测试数据" + i);
     }
-    mAdapter = new ChildClickRecyclerViewAdapter(R.layout.item_test_recycler, list);
-    mAdapter.setOnRecyclerViewItemClickListener(this);
-    mAdapter.setOnRecyclerViewItemLongClickListener(this);
+    mAdapter = new NestedRecyclerAdapter(this, list);
     mAdapter.setOnRecyclerViewItemChildClickListener(this);
   }
 

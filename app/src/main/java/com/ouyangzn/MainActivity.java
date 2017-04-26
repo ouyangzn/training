@@ -16,11 +16,13 @@
 
 package com.ouyangzn;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import com.ouyangzn.base.BaseActivity;
 import com.ouyangzn.module.testCoordinatorLayout.CoordinatorActivity;
 import com.ouyangzn.module.testCornerMarkText.TestCornerMarkActivity;
+import com.ouyangzn.module.testEMUINotification.NotificationActivity;
 import com.ouyangzn.module.testFlexboxLayout.FlexboxLayoutActivity;
 import com.ouyangzn.module.testLoadingView.LoadingActivity;
 import com.ouyangzn.module.testMQTT.MQTTActivity;
@@ -48,6 +50,11 @@ public class MainActivity extends BaseActivity {
     Log.d(TAG, "------------------getName = " + MainActivity.class.getName());
     Log.d(TAG, "------------------getSimpleName = " + MainActivity.class.getSimpleName());
     Log.d(TAG, "------------------getCanonicalName = " + MainActivity.class.getCanonicalName());
+  }
+
+  @Override protected void onNewIntent(Intent intent) {
+    super.onNewIntent(intent);
+    setIntent(intent);
   }
 
   public void testRxJava(View view) {
@@ -100,5 +107,9 @@ public class MainActivity extends BaseActivity {
 
   public void testMQTT(View view) {
     openActivity(MQTTActivity.class);
+  }
+
+  public void testEMUINotify(View view) {
+    openActivity(NotificationActivity.class);
   }
 }

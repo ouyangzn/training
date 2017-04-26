@@ -135,5 +135,13 @@
         android:text="测试MQTT"
         android:textAllCaps="false"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:onClick="testEMUINotify"
+        android:text="测试通知栏"
+        android:textAllCaps="false"
+        />
   </LinearLayout>
 </ScrollView>
