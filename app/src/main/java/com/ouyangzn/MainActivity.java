@@ -24,6 +24,7 @@ import com.ouyangzn.module.testCoordinatorLayout.CoordinatorActivity;
 import com.ouyangzn.module.testCornerMarkText.TestCornerMarkActivity;
 import com.ouyangzn.module.testEMUINotification.NotificationActivity;
 import com.ouyangzn.module.testFlexboxLayout.FlexboxLayoutActivity;
+import com.ouyangzn.module.testHandlerRemove.HandlerRemoveActivity;
 import com.ouyangzn.module.testLoadingView.LoadingActivity;
 import com.ouyangzn.module.testMQTT.MQTTActivity;
 import com.ouyangzn.module.testRealm.RealmActivity;
@@ -111,5 +112,9 @@ public class MainActivity extends BaseActivity {
 
   public void testEMUINotify(View view) {
     openActivity(NotificationActivity.class);
+  }
+
+  public void testHandlerRemove(View view) {
+    openActivity(HandlerRemoveActivity.class);
   }
 }
