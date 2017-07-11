@@ -62,7 +62,11 @@ public class Test2Layout extends LinearLayout {
     boolean intercept = false;
     switch (MotionEventCompat.getActionMasked(ev)) {
       case MotionEvent.ACTION_DOWN:
+        Log.d(TAG, "--------------onInterceptTouchEvent.ACTION_DOWN------------------");
         downY = ev.getY();
+        break;
+      case MotionEvent.ACTION_UP:
+        Log.d(TAG, "--------------onInterceptTouchEvent.ACTION_UP------------------");
         break;
       case MotionEvent.ACTION_MOVE:
         // 手指往下滑动
@@ -72,12 +76,25 @@ public class Test2Layout extends LinearLayout {
         break;
     }
     Log.d(TAG, "--------------onInterceptTouchEvent.return = " + intercept);
-    return intercept;
-    //return super.onInterceptTouchEvent(ev);
+    //return intercept;
+    return super.onInterceptTouchEvent(ev);
   }
 
   @Override public boolean dispatchTouchEvent(MotionEvent ev) {
     Log.d(TAG, "--------------dispatchTouchEvent------------------");
-    return super.dispatchTouchEvent(ev);
+    switch (MotionEventCompat.getActionMasked(ev)) {
+      case MotionEvent.ACTION_DOWN:
+        Log.d(TAG, "--------------dispatchTouchEvent.ACTION_DOWN------------------");
+        downY = ev.getY();
+        break;
+      case MotionEvent.ACTION_UP:
+        Log.d(TAG, "--------------dispatchTouchEvent.ACTION_UP------------------");
+        break;
+      case MotionEvent.ACTION_MOVE:
+        Log.d(TAG, "--------------dispatchTouchEvent.ACTION_MOVE------------------");
+        break;
+    }
+    //return super.dispatchTouchEvent(ev);
+    return true;
   }
 }

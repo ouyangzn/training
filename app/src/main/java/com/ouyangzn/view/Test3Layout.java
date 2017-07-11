@@ -19,6 +19,7 @@ package com.ouyangzn.view;
 import android.annotation.TargetApi;
 import android.content.Context;
 import android.os.Build;
+import android.support.v4.view.MotionEventCompat;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.LinearLayout;
@@ -50,7 +51,14 @@ public class Test3Layout extends LinearLayout {
   }
 
   @Override public boolean onTouchEvent(MotionEvent event) {
-    Log.d(TAG, "--------------onTouchEvent------------------");
+    switch (MotionEventCompat.getActionMasked(event)) {
+      case MotionEvent.ACTION_DOWN:
+        Log.d(TAG, "--------------onTouchEvent.ACTION_DOWN------------------");
+        break;
+      case MotionEvent.ACTION_UP:
+        Log.d(TAG, "--------------onTouchEvent.ACTION_UP------------------");
+        break;
+    }
     //return super.onTouchEvent(event);
     return true;
   }
@@ -64,5 +72,6 @@ public class Test3Layout extends LinearLayout {
   @Override public boolean dispatchTouchEvent(MotionEvent ev) {
     Log.d(TAG, "--------------dispatchTouchEvent------------------");
     return super.dispatchTouchEvent(ev);
+    //return true;
   }
 }
