@@ -30,7 +30,6 @@ android {
 
 dependencies {
   compile fileTree(include: ['*.jar'], dir: 'libs')
-  testCompile 'junit:junit:4.12'
   //
   compile "com.android.support:appcompat-v7:${APPCOMPAT_V7_VERSION}"
   compile "com.android.support:design:${DESIGN_VERSION}"
@@ -52,7 +51,6 @@ dependencies {
   // If you want to use Navi for providers
   compile "com.trello:rxlifecycle-navi:${RXLIFECYCLE_VERSION}"
 
-  compile 'com.orhanobut:dialogplus:1.11@aar'
   compile "com.alibaba:fastjson:${FASTJSON_VERSION}"
   compile "com.google.android:flexbox:${FLEXBOX_VERSION}"
   compile "com.yalantis:starwarstiles:${STARWARSTILES_VERSION}"
@@ -60,5 +58,8 @@ dependencies {
   compile "com.jakewharton:butterknife:${BUTTERKNIFE_VERSION}"
   apt "com.jakewharton:butterknife-compiler:${BUTTERKNIFE_COMPILER_VERSION}"
   // MQTT
+  compile 'com.orhanobut:dialogplus:1.11@aar'
   compile 'org.fusesource.mqtt-client:mqtt-client:1.14'
+  compile 'com.android.support.constraint:constraint-layout:1.0.0-beta1'
+  testCompile 'junit:junit:4.12'
 }

@@ -40,5 +40,15 @@
     <activity android:name=".module.testMQTT.MQTTActivity"/>
     <activity android:name=".module.testEMUINotification.NotificationActivity"/>
     <activity android:name=".module.testHandlerRemove.HandlerRemoveActivity"/>
+    <activity android:name=".module.testJobScheduler.TestJobSchedulerActivity">
+    </activity>
+
+    <service
+        android:name=".module.testJobScheduler.JobSchedulerService"
+        android:enabled="true"
+        android:exported="false"
+        android:permission="android.permission.BIND_JOB_SERVICE"
+        >
+    </service>
   </application>
 </manifest>

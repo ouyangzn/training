@@ -151,5 +151,13 @@
         android:text="测试handler的remove消息"
         android:textAllCaps="false"
         />
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:onClick="testJobScheduler"
+        android:text="测试JobScheduler"
+        android:textAllCaps="false"
+        />
   </LinearLayout>
 </ScrollView>
